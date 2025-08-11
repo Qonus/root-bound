@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cg67dl0w4cqxi"]
+
+[ext_resource type="Script" uid="uid://cjgsieehprlei" path="res://Scenes/hive.gd" id="1_bo86l"]
+[ext_resource type="Texture2D" uid="uid://ckuulvhsip0f7" path="res://assets/sheets/hive.png" id="11_fdmwc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ucv0o"]
+radius = 59.0085
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t031g"]
+radius = 12.0416
+
+[node name="Hive" type="Node2D"]
+script = ExtResource("1_bo86l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+texture = ExtResource("11_fdmwc")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ucv0o")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CircleShape2D_t031g")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

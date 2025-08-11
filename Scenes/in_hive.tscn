@@ -1,0 +1,477 @@
+[gd_scene load_steps=29 format=3 uid="uid://dbl4prq6qe2td"]
+
+[ext_resource type="PackedScene" uid="uid://byo7ot1iqoln8" path="res://Scenes/player.tscn" id="1_5uyql"]
+[ext_resource type="Script" uid="uid://5wyhh10bs4rv" path="res://Scripts/hud.gd" id="2_5uyql"]
+[ext_resource type="Script" uid="uid://b7hkpbp1jxo0l" path="res://Scripts/hints.gd" id="3_spxe2"]
+[ext_resource type="Texture2D" uid="uid://bytrj55qd475v" path="res://assets/sheets/tree_sheet.png" id="4_frvg8"]
+[ext_resource type="PackedScene" uid="uid://b2avqj20vwsbl" path="res://Scenes/ant.tscn" id="4_hbc4g"]
+[ext_resource type="AudioStream" uid="uid://b3adlkw8xaeyk" path="res://assets/Sound/724859__lovescotch__overclocking.wav" id="7_kvkj5"]
+[ext_resource type="AudioStream" uid="uid://q2qg1hke50iy" path="res://assets/Sound/368575__sirkoto51__atmospheric-ambiance-loop.wav" id="8_08nax"]
+[ext_resource type="Shader" uid="uid://kv75aowehduq" path="res://Shaders/oxygen_effect_2.gdshader" id="9_gdl44"]
+[ext_resource type="PackedScene" uid="uid://cy08shbroutnb" path="res://Scenes/tree.tscn" id="10_hbc4g"]
+[ext_resource type="Script" uid="uid://du0oh2anbjphh" path="res://Scripts/oxygen_effect.gd" id="10_lxibn"]
+[ext_resource type="Texture2D" uid="uid://ckuulvhsip0f7" path="res://assets/sheets/hive.png" id="11_fdmwc"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_7s54b"]
+resource_local_to_scene = true
+color = Color(0, 0, 0, 0.14902)
+thickness = 2
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_csxaf"]
+resource_local_to_scene = true
+color = Color(0.258824, 0.968627, 1, 0.470588)
+thickness = 2
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_kvkj5"]
+resource_local_to_scene = true
+color = Color(1, 0.968627, 1, 0.690196)
+thickness = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_cgmvo"]
+font_size = 10
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_sjmnu"]
+font_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_6fbih"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dialogue:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(162, 239)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Dialogue:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Dialogue:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(60, 85)]
+}
+
+[sub_resource type="Animation" id="Animation_t1xeu"]
+resource_name = "hide_dialogue"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dialogue:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.435276, 0.965936, 1.41421, 1),
+"update": 0,
+"values": [Vector2(100, 64), Vector2(80, 33.52), Vector2(50, 88.36), Vector2(20, 293.51)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Dialogue:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.435276, 0.965936, 1.41421, 1),
+"update": 0,
+"values": [0.0, -0.278806, -0.278806, -0.480351]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Dialogue:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.435276, 0.965936, 1.41421, 1),
+"update": 0,
+"values": [Vector2(130, 85), Vector2(60, 85), Vector2(60, 85), Vector2(60, 85)]
+}
+
+[sub_resource type="Animation" id="Animation_bjfho"]
+resource_name = "show_dialogue"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dialogue:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.31864, 1),
+"update": 0,
+"values": [Vector2(100, 239), Vector2(100, 64)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Dialogue:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.31864, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Dialogue:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.31864, 1),
+"update": 0,
+"values": [Vector2(60, 85), Vector2(60, 85)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t1xeu"]
+_data = {
+&"RESET": SubResource("Animation_6fbih"),
+&"hide_dialogue": SubResource("Animation_t1xeu"),
+&"show_dialogue": SubResource("Animation_bjfho")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjfho"]
+atlas = ExtResource("4_frvg8")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fbih"]
+atlas = ExtResource("4_frvg8")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1xeu"]
+atlas = ExtResource("4_frvg8")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_lrhcs"]
+fade_time = 0.0
+stream_count = 1
+stream_0 = ExtResource("7_kvkj5")
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_j5hfv"]
+fade_time = 0.0
+stream_count = 1
+stream_0 = ExtResource("8_08nax")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k6nk5"]
+resource_local_to_scene = true
+shader = ExtResource("9_gdl44")
+shader_parameter/world_position = Vector2(-782, -833)
+shader_parameter/scale = Vector2(406.139, 406.139)
+shader_parameter/circles = []
+shader_parameter/num_circles = 0
+shader_parameter/smooth_factor = 10.0
+shader_parameter/border_width = 2.0
+shader_parameter/border_color = Color(0.294118, 1, 1, 0.556863)
+shader_parameter/inside_color = Color(0, 0.717647, 0.972549, 0.321569)
+shader_parameter/wave_number = 5.0
+shader_parameter/wave_amplitude = 1.0
+shader_parameter/wave_speed = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ivwil"]
+width = 4
+height = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pylrw"]
+resource_local_to_scene = true
+shader = ExtResource("9_gdl44")
+shader_parameter/world_position = Vector2(-318383, -339147)
+shader_parameter/scale = Vector2(164949, 164949)
+shader_parameter/circles = []
+shader_parameter/num_circles = 0
+shader_parameter/smooth_factor = 10.0
+shader_parameter/border_width = 1.0
+shader_parameter/border_color = Color(0.145098, 0.67451, 0.913725, 0.682353)
+shader_parameter/inside_color = Color(0.367262, 0.730399, 1, 0.0823529)
+shader_parameter/wave_number = 2.0
+shader_parameter/wave_amplitude = 1.0
+shader_parameter/wave_speed = 1.0
+
+[node name="Hive" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_5uyql")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="CanvasLayer" groups=["hud"]]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_5uyql")
+metadata/_edit_use_anchors_ = true
+
+[node name="OxygenBar" type="ProgressBar" parent="CanvasLayer/HUD"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -27.0
+offset_top = 158.0
+offset_right = 23.0
+offset_bottom = 174.0
+grow_horizontal = 2
+tooltip_text = "health bar"
+theme_override_colors/font_color = Color(1, 1, 1, 0.521569)
+theme_override_font_sizes/font_size = 10
+theme_override_styles/background = SubResource("StyleBoxLine_7s54b")
+theme_override_styles/fill = SubResource("StyleBoxLine_csxaf")
+max_value = 1.0
+value = 0.22
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/HUD"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -27.0
+offset_top = 6.0
+offset_right = 23.0
+offset_bottom = 10.0
+grow_horizontal = 2
+tooltip_text = "health bar"
+theme_override_styles/background = SubResource("StyleBoxLine_7s54b")
+theme_override_styles/fill = SubResource("StyleBoxLine_kvkj5")
+max_value = 1.0
+value = 0.2
+show_percentage = false
+
+[node name="Hints" type="Control" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_spxe2")
+
+[node name="Start" type="Label" parent="CanvasLayer/HUD/Hints"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "[LMB] - to shoot
+[W] [A] [S] [D] - to move around
+FEED the plants to SURVIVE!"
+label_settings = SubResource("LabelSettings_cgmvo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Grab" type="Label" parent="CanvasLayer/HUD/Hints"]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -27.0
+offset_right = 118.0
+offset_bottom = -4.0
+grow_vertical = 0
+text = "[RMB] - to grab/throw"
+label_settings = SubResource("LabelSettings_sjmnu")
+vertical_alignment = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/HUD"]
+process_mode = 3
+libraries = {
+&"": SubResource("AnimationLibrary_t1xeu")
+}
+
+[node name="Dialogue" type="HBoxContainer" parent="CanvasLayer/HUD"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 162.0
+offset_top = 239.0
+offset_right = -37.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(162.115, 42.38)
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/Dialogue"]
+layout_direction = 2
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Oxygen_Tree_button" type="Button" parent="CanvasLayer/HUD/Dialogue/HBoxContainer"]
+custom_minimum_size = Vector2(55, 70)
+layout_mode = 2
+focus_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD/Dialogue/HBoxContainer/Oxygen_Tree_button"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_bjfho")
+
+[node name="Oxygen_Tree_button2" type="Button" parent="CanvasLayer/HUD/Dialogue/HBoxContainer"]
+custom_minimum_size = Vector2(55, 70)
+layout_mode = 2
+focus_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD/Dialogue/HBoxContainer/Oxygen_Tree_button2"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_6fbih")
+
+[node name="Field_Tree_button" type="Button" parent="CanvasLayer/HUD/Dialogue/HBoxContainer"]
+custom_minimum_size = Vector2(55, 70)
+layout_mode = 2
+focus_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD/Dialogue/HBoxContainer/Field_Tree_button"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_t1xeu")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = SubResource("AudioStreamPlaylist_lrhcs")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"
+
+[node name="AmbiancePlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPlaylist_j5hfv")
+autoplay = true
+bus = &"Music"
+
+[node name="Oxygen effect" type="Sprite2D" parent="." groups=["oxygen_effect"]]
+z_index = 10
+material = SubResource("ShaderMaterial_k6nk5")
+position = Vector2(-782, -833)
+scale = Vector2(406.139, 406.139)
+texture = SubResource("NoiseTexture2D_ivwil")
+centered = false
+script = ExtResource("10_lxibn")
+
+[node name="Field effect" type="Sprite2D" parent="." groups=["field_effect"]]
+z_index = 10
+material = SubResource("ShaderMaterial_pylrw")
+position = Vector2(-318383, -339147)
+scale = Vector2(164949, 164949)
+texture = SubResource("NoiseTexture2D_ivwil")
+centered = false
+script = ExtResource("10_lxibn")
+
+[node name="Hive_background" type="Sprite2D" parent="."]
+z_index = -1
+scale = Vector2(2.35974, 2.35974)
+texture = ExtResource("11_fdmwc")
+
+[node name="Hive_background2" type="Sprite2D" parent="."]
+modulate = Color(0.980392, 0.866667, 0.513726, 1)
+z_index = -1
+scale = Vector2(1.84298, 1.84298)
+texture = ExtResource("11_fdmwc")
+
+[node name="Hive_background3" type="Sprite2D" parent="."]
+modulate = Color(0.854374, 0.681947, 1.15514e-06, 1)
+z_index = -1
+scale = Vector2(0.437779, 0.437779)
+texture = ExtResource("11_fdmwc")
+
+[node name="Tree" parent="." instance=ExtResource("10_hbc4g")]
+position = Vector2(-48, -32)
+
+[node name="Tree2" parent="." instance=ExtResource("10_hbc4g")]
+position = Vector2(-46, 73)
+
+[node name="Tree3" parent="." instance=ExtResource("10_hbc4g")]
+position = Vector2(71, -52)
+
+[node name="Ant" parent="." instance=ExtResource("4_hbc4g")]
+position = Vector2(-77, 18)
+dead = true
+
+[node name="Ant2" parent="." instance=ExtResource("4_hbc4g")]
+position = Vector2(67, 24)
+dead = true
+
+[node name="Ant3" parent="." instance=ExtResource("4_hbc4g")]
+position = Vector2(-34, -97)
+dead = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 63
+collision_mask = 63
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-126, -86, -157, -184, -18, -210, 181, -199, 232, 57, 42, 245, -165, 198, -238, -48, -191, -119, -126, -81, -147, -25, -146, 32, -115, 98, -74, 130, 5, 148, 66, 134, 113, 95, 145, 34, 144, -38, 119, -91, 76, -129, 21, -151, -44, -143, -104, -108)

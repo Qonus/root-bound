@@ -1,0 +1,367 @@
+[gd_scene load_steps=25 format=3 uid="uid://cy08shbroutnb"]
+
+[ext_resource type="Texture2D" uid="uid://bytrj55qd475v" path="res://assets/sheets/tree_sheet.png" id="1_7b80l"]
+[ext_resource type="Script" uid="uid://b63cn5yrtdy02" path="res://Scripts/tree.gd" id="1_rsuno"]
+[ext_resource type="Script" uid="uid://b2205rthhqhcf" path="res://Scripts/resource/base_tree_params.gd" id="2_jqx0n"]
+[ext_resource type="Shader" uid="uid://e534egnciiwg" path="res://Shaders/tree.gdshader" id="2_l7sa7"]
+[ext_resource type="Resource" uid="uid://cmjk0t31soo1o" path="res://assets/Resource/oxygen_tree.tres" id="3_byqqd"]
+[ext_resource type="Texture2D" uid="uid://d026jw8y6hm0c" path="res://assets/Textures/damien-ramirez-cg-2.jpg" id="3_l3oha"]
+[ext_resource type="Resource" uid="uid://b3gwc0hrxicm6" path="res://assets/Resource/turret_tree.tres" id="4_byqqd"]
+[ext_resource type="AudioStream" uid="uid://btddu1c422cwe" path="res://assets/Sound/SFX/tree_die.wav" id="5_m36md"]
+[ext_resource type="Resource" uid="uid://cacemrsa3ugfw" path="res://assets/Resource/field_tree.tres" id="5_vqyx3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l3oha"]
+shader = ExtResource("2_l7sa7")
+shader_parameter/render_noise = false
+shader_parameter/noise_texture = ExtResource("3_l3oha")
+shader_parameter/amplitude = 0.05
+shader_parameter/time_scale = 0.04
+shader_parameter/noise_scale = 0.001
+shader_parameter/rotation_strength = 0.9
+shader_parameter/rotation_pivot = Vector2(0.5, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_btr40"]
+atlas = ExtResource("1_7b80l")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cu220"]
+atlas = ExtResource("1_7b80l")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_so1u5"]
+atlas = ExtResource("1_7b80l")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m36md"]
+atlas = ExtResource("1_7b80l")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8wpw"]
+atlas = ExtResource("1_7b80l")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqx0n"]
+atlas = ExtResource("1_7b80l")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hus7l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_btr40")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cu220")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_so1u5")
+}],
+"loop": false,
+"name": &"Oxygen",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m36md")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8wpw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jqx0n")
+}],
+"loop": true,
+"name": &"Turret",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ud25y"]
+radius = 3.16228
+
+[sub_resource type="Animation" id="Animation_l7sa7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TreeAnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TreeAnimatedSprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -13)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TreeAnimatedSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TreeAnimatedSprite2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DieSound:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DieSound:volume_db")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-10.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("DieSound:pitch_scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.4]
+}
+
+[sub_resource type="Animation" id="Animation_m36md"]
+resource_name = "die"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TreeAnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.233333),
+"transitions": PackedFloat32Array(1, 1.62451, 0.392292),
+"update": 1,
+"values": [2, 1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TreeAnimatedSprite2D:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.134907, 0.233333, 0.366667),
+"transitions": PackedFloat32Array(1.18921, 1.62451, 1.62451, 1.62451, 0.392292),
+"update": 0,
+"values": [Vector2(0, -14), Vector2(-2, -10), Vector2(-1, -13), Vector2(4, -14), Vector2(0, -13)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TreeAnimatedSprite2D:rotation")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.134907, 0.233333, 0.366667),
+"transitions": PackedFloat32Array(1.18921, 1.62451, 1.62451, 1.62451, 0.392292),
+"update": 0,
+"values": [0.0, -0.0872665, -0.0872805, 0.271352, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TreeAnimatedSprite2D:scale")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.134907, 0.233333, 0.366667),
+"transitions": PackedFloat32Array(1.18921, 1.62451, 1.62451, 1.62451, 0.392292),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.737998, 0.737998), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DieSound:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.166667, 0.233333, 0.366667, 0.533333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DieSound:volume_db")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.166302, 0.36362),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-5.0, -10.0, -10.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("DieSound:pitch_scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.164728, 0.36362),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.8, 0.6, 0.4]
+}
+
+[sub_resource type="Animation" id="Animation_rsuno"]
+resource_name = "grow"
+length = 0.5
+step = 0.0168
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TreeAnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.283333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TreeAnimatedSprite2D:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.5),
+"transitions": PackedFloat32Array(0.203063, 0.203063, 1),
+"update": 0,
+"values": [Vector2(0, -13), Vector2(-2, -18), Vector2(0, -16)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TreeAnimatedSprite2D:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.5),
+"transitions": PackedFloat32Array(0.203063, 0.203063, 1),
+"update": 0,
+"values": [0.0, -0.0985596, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TreeAnimatedSprite2D:scale")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.5),
+"transitions": PackedFloat32Array(0.203063, 0.203063, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.34416, 1.34416), Vector2(1.2, 1.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l3oha"]
+_data = {
+&"RESET": SubResource("Animation_l7sa7"),
+&"die": SubResource("Animation_m36md"),
+&"grow": SubResource("Animation_rsuno")
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_q8wpw"]
+streams_count = 1
+stream_0/stream = ExtResource("5_m36md")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m36md"]
+resource_local_to_scene = true
+radius = 0.01
+
+[node name="Tree" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 7
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 1
+contact_monitor = true
+max_contacts_reported = 175
+script = ExtResource("1_rsuno")
+trees = Array[ExtResource("2_jqx0n")]([ExtResource("3_byqqd"), ExtResource("4_byqqd"), ExtResource("5_vqyx3")])
+
+[node name="TreeAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 4
+material = SubResource("ShaderMaterial_l3oha")
+position = Vector2(0, -13)
+sprite_frames = SubResource("SpriteFrames_hus7l")
+animation = &"Turret"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ud25y")
+
+[node name="TreeAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_l3oha")
+}
+
+[node name="GrowSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_q8wpw")
+bus = &"SFX"
+
+[node name="DieSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_q8wpw")
+volume_db = -10.0
+pitch_scale = 0.4
+bus = &"SFX"
+
+[node name="OxygenArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OxygenArea"]
+shape = SubResource("CircleShape2D_m36md")
+
+[connection signal="body_entered" from="OxygenArea" to="." method="_on_oxygen_area_body_entered"]
+[connection signal="body_exited" from="OxygenArea" to="." method="_on_oxygen_area_body_exited"]

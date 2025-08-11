@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="TurretTreeParams" load_steps=8 format=3 uid="uid://b3gwc0hrxicm6"]
+
+[ext_resource type="PackedScene" uid="uid://xvf0t5juar0o" path="res://Scenes/sting.tscn" id="1_wbu53"]
+[ext_resource type="Script" uid="uid://dxeodbh456c35" path="res://Scripts/resource/turret_tree_params.gd" id="2_7ttba"]
+[ext_resource type="Texture2D" uid="uid://bytrj55qd475v" path="res://assets/sheets/tree_sheet.png" id="3_3ac8a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wk438"]
+atlas = ExtResource("3_3ac8a")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8v76a"]
+atlas = ExtResource("3_3ac8a")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssymx"]
+atlas = ExtResource("3_3ac8a")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_385gf"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wk438")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8v76a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ssymx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_7ttba")
+attack_range = 100.0
+bullet = ExtResource("1_wbu53")
+cooldown = 0.4
+energy_per_body = 40.0
+max_energy = -1.0
+radius_multiplier = 0.7
+max_radius = 20.0
+sprite_frames = SubResource("SpriteFrames_385gf")
+metadata/_custom_type_script = "uid://dxeodbh456c35"

@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="FieldTreeParams" load_steps=7 format=3 uid="uid://cacemrsa3ugfw"]
+
+[ext_resource type="Script" uid="uid://dpanihxxx3pfd" path="res://Scripts/resource/field_tree.gd" id="1_lsbhw"]
+[ext_resource type="Texture2D" uid="uid://bytrj55qd475v" path="res://assets/sheets/tree_sheet.png" id="2_mbkdq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57fkx"]
+atlas = ExtResource("2_mbkdq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0wxr"]
+atlas = ExtResource("2_mbkdq")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbn7y"]
+atlas = ExtResource("2_mbkdq")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ul50l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57fkx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0wxr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbn7y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_lsbhw")
+field_radius = 120.0
+fan_power = 300.0
+energy_per_body = 60.0
+max_energy = -1.0
+radius_multiplier = 4.0
+max_radius = 70.0
+sprite_frames = SubResource("SpriteFrames_ul50l")
+metadata/_custom_type_script = "uid://dpanihxxx3pfd"

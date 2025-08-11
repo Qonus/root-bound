@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbhrg0kd23u6a"]
+
+[ext_resource type="Shader" uid="uid://kv75aowehduq" path="res://Shaders/oxygen_effect_2.gdshader" id="1_cq37o"]
+[ext_resource type="Script" uid="uid://du0oh2anbjphh" path="res://Scripts/oxygen_effect.gd" id="1_qndv1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qndv1"]
+shader = ExtResource("1_cq37o")
+shader_parameter/world_position = Vector2(0, 0)
+shader_parameter/scale = Vector2(50, 50)
+shader_parameter/circles = []
+shader_parameter/num_circles = 0
+shader_parameter/smooth_factor = 20.0
+shader_parameter/border_width = 2.0
+shader_parameter/border_color = Color(0.294368, 1, 0.999171, 0.556863)
+shader_parameter/inside_color = Color(5.0056e-06, 0.719415, 0.973597, 0.321569)
+shader_parameter/wave_number = 5.0
+shader_parameter/wave_amplitude = 2.0
+shader_parameter/wave_speed = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rvg8r"]
+width = 4
+height = 4
+
+[node name="Sprite2D" type="Sprite2D"]
+material = SubResource("ShaderMaterial_qndv1")
+scale = Vector2(50, 50)
+texture = SubResource("NoiseTexture2D_rvg8r")
+centered = false
+script = ExtResource("1_qndv1")

@@ -1,0 +1,78 @@
+[gd_scene load_steps=17 format=3 uid="uid://cfmoqhatk7nfr"]
+
+[ext_resource type="Script" uid="uid://0k2mxle3gkwm" path="res://Scripts/enemy_spawner.gd" id="1_4l55s"]
+[ext_resource type="PackedScene" uid="uid://b2avqj20vwsbl" path="res://Scenes/ant.tscn" id="2_8h7h8"]
+[ext_resource type="PackedScene" uid="uid://bnixjyrj70tq4" path="res://Scenes/black_ant.tscn" id="3_cdqhx"]
+[ext_resource type="Script" uid="uid://dkegijp47h8bw" path="res://Scripts/resource/wave.gd" id="4_tdwud"]
+
+[sub_resource type="Resource" id="Resource_gga2x"]
+script = ExtResource("4_tdwud")
+enemy_quantities = Array[int]([1, 0, 0])
+metadata/_custom_type_script = "uid://dkegijp47h8bw"
+
+[sub_resource type="Resource" id="Resource_2cu8b"]
+script = ExtResource("4_tdwud")
+enemy_quantities = Array[int]([2, 0, 0])
+metadata/_custom_type_script = "uid://dkegijp47h8bw"
+
+[sub_resource type="Resource" id="Resource_66y63"]
+script = ExtResource("4_tdwud")
+enemy_quantities = Array[int]([3, 0, 0])
+metadata/_custom_type_script = "uid://dkegijp47h8bw"
+
+[sub_resource type="Resource" id="Resource_a75ph"]
+script = ExtResource("4_tdwud")
+enemy_quantities = Array[int]([1, 1, 0])
+metadata/_custom_type_script = "uid://dkegijp47h8bw"
+
+[sub_resource type="Resource" id="Resource_2a8rl"]
+script = ExtResource("4_tdwud")
+enemy_quantities = Array[int]([2, 2, 1])
+metadata/_custom_type_script = "uid://dkegijp47h8bw"
+
+[sub_resource type="Resource" id="Resource_ri74a"]
+script = ExtResource("4_tdwud")
+enemy_quantities = Array[int]([1, 0, 3])
+metadata/_custom_type_script = "uid://dkegijp47h8bw"
+
+[sub_resource type="Resource" id="Resource_6odvj"]
+script = ExtResource("4_tdwud")
+enemy_quantities = Array[int]([0, 1, 3])
+metadata/_custom_type_script = "uid://dkegijp47h8bw"
+
+[sub_resource type="Resource" id="Resource_le2do"]
+script = ExtResource("4_tdwud")
+enemy_quantities = Array[int]([1, 1, 4])
+metadata/_custom_type_script = "uid://dkegijp47h8bw"
+
+[sub_resource type="Resource" id="Resource_6mool"]
+script = ExtResource("4_tdwud")
+enemy_quantities = Array[int]([5, 0, 0])
+metadata/_custom_type_script = "uid://dkegijp47h8bw"
+
+[sub_resource type="Resource" id="Resource_ti0ik"]
+script = ExtResource("4_tdwud")
+enemy_quantities = Array[int]([0, 5, 0])
+metadata/_custom_type_script = "uid://dkegijp47h8bw"
+
+[sub_resource type="Resource" id="Resource_tdwud"]
+script = ExtResource("4_tdwud")
+enemy_quantities = Array[int]([0, 0, 5])
+metadata/_custom_type_script = "uid://dkegijp47h8bw"
+
+[sub_resource type="Resource" id="Resource_bmo14"]
+script = ExtResource("4_tdwud")
+enemy_quantities = Array[int]([2, 3, 5])
+metadata/_custom_type_script = "uid://dkegijp47h8bw"
+
+[node name="EnemySpawner" type="Node" groups=["enemy_spawner"]]
+script = ExtResource("1_4l55s")
+enemy_instances = Array[PackedScene]([ExtResource("2_8h7h8"), ExtResource("3_cdqhx")])
+waves = Array[ExtResource("4_tdwud")]([SubResource("Resource_gga2x"), SubResource("Resource_2cu8b"), SubResource("Resource_66y63"), SubResource("Resource_a75ph"), SubResource("Resource_2a8rl"), SubResource("Resource_ri74a"), SubResource("Resource_6odvj"), SubResource("Resource_le2do"), SubResource("Resource_6mool"), SubResource("Resource_ti0ik"), SubResource("Resource_tdwud"), SubResource("Resource_bmo14")])
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

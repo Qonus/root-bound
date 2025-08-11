@@ -1,0 +1,229 @@
+[gd_scene load_steps=18 format=3 uid="uid://up4hkhco6bbu"]
+
+[ext_resource type="PackedScene" uid="uid://byo7ot1iqoln8" path="res://Scenes/player.tscn" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://cy08shbroutnb" path="res://Scenes/tree.tscn" id="2_bo1nx"]
+[ext_resource type="AudioStream" uid="uid://b3adlkw8xaeyk" path="res://assets/Sound/724859__lovescotch__overclocking.wav" id="5_6bp64"]
+[ext_resource type="AudioStream" uid="uid://q2qg1hke50iy" path="res://assets/Sound/368575__sirkoto51__atmospheric-ambiance-loop.wav" id="5_21xkr"]
+[ext_resource type="PackedScene" uid="uid://bnixjyrj70tq4" path="res://Scenes/black_ant.tscn" id="5_d1ilt"]
+[ext_resource type="PackedScene" uid="uid://daek7wkgjlncy" path="res://Scenes/hud.tscn" id="5_kry3j"]
+[ext_resource type="PackedScene" uid="uid://gjshqjavmi5a" path="res://Scenes/turret_ant.tscn" id="6_6iyac"]
+[ext_resource type="PackedScene" uid="uid://cfmoqhatk7nfr" path="res://Scenes/enemy_spawner.tscn" id="6_21xkr"]
+[ext_resource type="Shader" uid="uid://kv75aowehduq" path="res://Shaders/oxygen_effect_2.gdshader" id="8_344ge"]
+[ext_resource type="PackedScene" uid="uid://b2avqj20vwsbl" path="res://Scenes/ant.tscn" id="9_ynf5e"]
+[ext_resource type="Script" uid="uid://du0oh2anbjphh" path="res://Scripts/oxygen_effect.gd" id="12_6iyac"]
+[ext_resource type="PackedScene" uid="uid://cg67dl0w4cqxi" path="res://Scenes/hive.tscn" id="12_fdnlq"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_344ge"]
+fade_time = 0.0
+stream_count = 1
+stream_0 = ExtResource("5_6bp64")
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_6bp64"]
+fade_time = 0.0
+stream_count = 1
+stream_0 = ExtResource("5_21xkr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ynf5e"]
+resource_local_to_scene = true
+shader = ExtResource("8_344ge")
+shader_parameter/world_position = Vector2(-782, -833)
+shader_parameter/scale = Vector2(406.139, 406.139)
+shader_parameter/circles = []
+shader_parameter/num_circles = 0
+shader_parameter/smooth_factor = 10.0
+shader_parameter/border_width = 2.0
+shader_parameter/border_color = Color(0.294118, 1, 1, 0.556863)
+shader_parameter/inside_color = Color(0, 0.717647, 0.972549, 0.321569)
+shader_parameter/wave_number = 5.0
+shader_parameter/wave_amplitude = 1.0
+shader_parameter/wave_speed = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rvg8r"]
+width = 4
+height = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6iyac"]
+resource_local_to_scene = true
+shader = ExtResource("8_344ge")
+shader_parameter/world_position = Vector2(-318383, -339147)
+shader_parameter/scale = Vector2(164949, 164949)
+shader_parameter/circles = []
+shader_parameter/num_circles = 0
+shader_parameter/smooth_factor = 10.0
+shader_parameter/border_width = 1.0
+shader_parameter/border_color = Color(0.145098, 0.67451, 0.913725, 0.682353)
+shader_parameter/inside_color = Color(0.367262, 0.730399, 1, 0.0823529)
+shader_parameter/wave_number = 2.0
+shader_parameter/wave_amplitude = 1.0
+shader_parameter/wave_speed = 1.0
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_jjgbg")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("5_kry3j")]
+metadata/_edit_use_anchors_ = true
+
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("origin") instance=ExtResource("6_21xkr")]
+origin = NodePath("../Player")
+enemy_instances = Array[PackedScene]([ExtResource("9_ynf5e"), ExtResource("5_d1ilt"), ExtResource("6_6iyac")])
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = SubResource("AudioStreamPlaylist_344ge")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"
+
+[node name="AmbiancePlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPlaylist_6bp64")
+autoplay = true
+bus = &"Music"
+
+[node name="Oxygen effect" type="Sprite2D" parent="." groups=["oxygen_effect"]]
+z_index = 10
+material = SubResource("ShaderMaterial_ynf5e")
+position = Vector2(-782, -833)
+scale = Vector2(406.139, 406.139)
+texture = SubResource("NoiseTexture2D_rvg8r")
+centered = false
+script = ExtResource("12_6iyac")
+
+[node name="Trees" type="Node" parent="."]
+
+[node name="Tree2" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-175, 16)
+
+[node name="Tree" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-56, -27)
+
+[node name="Tree3" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-56, 98)
+
+[node name="Tree4" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(56, -58)
+
+[node name="Tree5" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(64, 62)
+
+[node name="Tree6" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-17, 197)
+
+[node name="Tree7" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-206, 112)
+
+[node name="Tree8" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-197, -75)
+
+[node name="Tree9" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-79, -131)
+
+[node name="Tree10" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(112, -127)
+
+[node name="Tree11" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(374, 120)
+
+[node name="Tree12" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(298, -24)
+
+[node name="Tree13" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-333, -1)
+
+[node name="Tree14" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-289, 212)
+
+[node name="Tree15" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-290, 83)
+
+[node name="Tree16" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(8, -181)
+
+[node name="Tree17" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-210, -213)
+
+[node name="Tree18" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-335, -118)
+
+[node name="Tree19" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(250, -131)
+
+[node name="Tree20" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(199, 200)
+
+[node name="Tree21" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-154, 253)
+
+[node name="Tree22" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-386, 132)
+
+[node name="Tree23" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-425, -49)
+
+[node name="Tree24" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(174, -231)
+
+[node name="Tree25" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(263, 93)
+
+[node name="Tree26" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(88, 132)
+
+[node name="Tree27" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-132, 157)
+
+[node name="Tree28" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(82, 290)
+
+[node name="Tree29" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(183, -73)
+
+[node name="Tree30" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-60, 297)
+
+[node name="Tree31" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-78, -250)
+
+[node name="Tree32" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-191, -155)
+
+[node name="Tree33" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-130, -53)
+
+[node name="Tree34" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(28, -289)
+
+[node name="Tree35" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(388, -79)
+
+[node name="Tree36" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(320, -230)
+
+[node name="Tree37" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(120, -367)
+
+[node name="Tree38" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-88, -356)
+
+[node name="Tree39" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-271, -302)
+
+[node name="Tree40" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(-182, 366)
+
+[node name="Tree41" parent="Trees" instance=ExtResource("2_bo1nx")]
+position = Vector2(189, 335)
+
+[node name="Field effect" type="Sprite2D" parent="." groups=["field_effect"]]
+z_index = 10
+material = SubResource("ShaderMaterial_6iyac")
+position = Vector2(-318383, -339147)
+scale = Vector2(164949, 164949)
+texture = SubResource("NoiseTexture2D_rvg8r")
+centered = false
+script = ExtResource("12_6iyac")
+
+[node name="Hive" parent="." instance=ExtResource("12_fdnlq")]
+position = Vector2(0, -31)

@@ -1,0 +1,938 @@
+[gd_scene load_steps=40 format=3 uid="uid://b1io38epnsh1b"]
+
+[ext_resource type="Script" uid="uid://drf0f87mjgwk" path="res://Scripts/game_over.gd" id="1_3817r"]
+[ext_resource type="PackedScene" uid="uid://up4hkhco6bbu" path="res://Scenes/main.tscn" id="2_mitgx"]
+[ext_resource type="Script" uid="uid://1xmnp4ilf6mh" path="res://Scripts/ant.gd" id="3_gs2es"]
+[ext_resource type="PackedScene" uid="uid://jn8icf0gn5yu" path="res://Scenes/main_menu.tscn" id="3_mitgx"]
+[ext_resource type="Texture2D" uid="uid://ceyknbsfl53jd" path="res://assets/sheets/claw.png" id="5_61f6c"]
+[ext_resource type="Texture2D" uid="uid://cwtfwc5pxo7bs" path="res://assets/sheets/ant_sheet.png" id="5_mitgx"]
+[ext_resource type="Script" uid="uid://hh077l2jiybg" path="res://Scripts/components/hitbox.gd" id="6_xqply"]
+[ext_resource type="Texture2D" uid="uid://dtt15jeakwddk" path="res://assets/sheets/ant_leg.png" id="7_i8bap"]
+[ext_resource type="Script" uid="uid://b2iguirxrolfu" path="res://Scripts/components/hurtbox.gd" id="8_e3ik1"]
+[ext_resource type="Script" uid="uid://cjlkd8dcoggfe" path="res://Scripts/components/health.gd" id="9_4sv83"]
+[ext_resource type="Script" uid="uid://cvdns71qjt7hv" path="res://Scripts/ant_ik.gd" id="10_os6t5"]
+[ext_resource type="AudioStream" uid="uid://yyqmn7bt841c" path="res://assets/Sound/SFX/game_over.wav" id="12_gs2es"]
+[ext_resource type="Shader" uid="uid://kv75aowehduq" path="res://Shaders/oxygen_effect_2.gdshader" id="13_xqply"]
+[ext_resource type="Script" uid="uid://du0oh2anbjphh" path="res://Scripts/oxygen_effect.gd" id="14_i8bap"]
+[ext_resource type="Script" uid="uid://c70ooal7tc7va" path="res://Scripts/resource/circle.gd" id="15_e3ik1"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f6dov"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ydk5"]
+atlas = SubResource("CompressedTexture2D_f6dov")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gs2es"]
+atlas = ExtResource("5_mitgx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wtaqj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ydk5")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gs2es")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f6dov"]
+radius = 6.96568
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yntpf"]
+radius = 5.0
+height = 38.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ydk5"]
+radius = 608.691
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_i4swy"]
+resource_local_to_scene = true
+target_nodepath = NodePath("../IK_container/front/leg1")
+joint_one_bone_idx = 1
+joint_one_bone2d_node = NodePath("body/hip")
+joint_two_bone_idx = 2
+joint_two_bone2d_node = NodePath("body/hip/leg")
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_gyt8k"]
+resource_local_to_scene = true
+target_nodepath = NodePath("../IK_container/middle/leg2")
+joint_one_bone_idx = 4
+joint_one_bone2d_node = NodePath("body/hip2")
+joint_two_bone_idx = 5
+joint_two_bone2d_node = NodePath("body/hip2/leg")
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_ecood"]
+resource_local_to_scene = true
+target_nodepath = NodePath("../IK_container/back/leg3")
+joint_one_bone_idx = 7
+joint_one_bone2d_node = NodePath("body/hip3")
+joint_two_bone_idx = 8
+joint_two_bone2d_node = NodePath("body/hip3/leg")
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_2k6ru"]
+resource_local_to_scene = true
+target_nodepath = NodePath("../IK_container/front/leg4")
+flip_bend_direction = true
+joint_one_bone_idx = 10
+joint_one_bone2d_node = NodePath("body/hip4")
+joint_two_bone_idx = 11
+joint_two_bone2d_node = NodePath("body/hip4/leg")
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_4u0g4"]
+resource_local_to_scene = true
+target_nodepath = NodePath("../IK_container/middle/leg5")
+flip_bend_direction = true
+joint_one_bone_idx = 13
+joint_one_bone2d_node = NodePath("body/hip5")
+joint_two_bone_idx = 14
+joint_two_bone2d_node = NodePath("body/hip5/leg")
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_o0v5y"]
+resource_local_to_scene = true
+target_nodepath = NodePath("../IK_container/back/leg6")
+flip_bend_direction = true
+joint_one_bone_idx = 16
+joint_one_bone2d_node = NodePath("body/hip6")
+joint_two_bone_idx = 17
+joint_two_bone2d_node = NodePath("body/hip6/leg")
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_b38od"]
+resource_local_to_scene = true
+enabled = true
+modification_count = 6
+modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_i4swy")
+modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_gyt8k")
+modifications/2 = SubResource("SkeletonModification2DTwoBoneIK_ecood")
+modifications/3 = SubResource("SkeletonModification2DTwoBoneIK_2k6ru")
+modifications/4 = SubResource("SkeletonModification2DTwoBoneIK_4u0g4")
+modifications/5 = SubResource("SkeletonModification2DTwoBoneIK_o0v5y")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_00xey"]
+radius = 5.0
+height = 38.0
+
+[sub_resource type="Animation" id="Animation_riijy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("L_claw:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-3, -4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("L_claw:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.963683]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("L_claw:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("R_claw:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("R_claw:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.903002]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("R_claw:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("L_claw:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("R_claw:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("AntHitBox/CollisionShape2D:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_00xey"]
+resource_name = "attack"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("L_claw:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.146667, 0.28, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 2),
+"update": 0,
+"values": [Vector2(-2, 3), Vector2(-2, -5), Vector2(-2, -5), Vector2(-2, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("L_claw:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.28, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 2),
+"update": 0,
+"values": [-2.35619, -0.174533, -0.174533, -2.32557]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("L_claw:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 2),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.009, 1), Vector2(1.009, 1), Vector2(1e-05, 1e-05)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("R_claw:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.132397, 0.264793, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 2),
+"update": 0,
+"values": [Vector2(1, 3), Vector2(2, -5), Vector2(2, -5), Vector2(1, 2)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("R_claw:rotation")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.132397, 0.264793, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 2),
+"update": 0,
+"values": [2.26893, 0.174533, 0.174533, 1.74533]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("R_claw:scale")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.132397, 0.264793, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 2),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1), Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("L_claw:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("R_claw:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.398416),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("AntHitBox/CollisionShape2D:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.133333, 0.266667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_f6dov"]
+resource_name = "new_animation"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f7xtn"]
+_data = {
+&"RESET": SubResource("Animation_riijy"),
+&"attack": SubResource("Animation_00xey"),
+&"new_animation": SubResource("Animation_f6dov")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xqply"]
+resource_local_to_scene = true
+shader = ExtResource("13_xqply")
+shader_parameter/world_position = Vector2(-236, -217)
+shader_parameter/scale = Vector2(121.169, 121.169)
+shader_parameter/circles = [Vector3(85.135, -66.98, 20.96), Vector3(-40.57, 3.49, 18.16), Vector3(34.075, -0.905, 0.875)]
+shader_parameter/num_circles = 3
+shader_parameter/smooth_factor = 91.755
+shader_parameter/border_width = 1.0
+shader_parameter/border_color = Color(0.294368, 1, 0.999171, 0.556863)
+shader_parameter/inside_color = Color(5.0056e-06, 0.719415, 0.973597, 0.321569)
+shader_parameter/wave_number = 7.0
+shader_parameter/wave_amplitude = 1.0
+shader_parameter/wave_speed = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_os6t5"]
+width = 4
+height = 4
+
+[sub_resource type="Resource" id="Resource_i8bap"]
+resource_local_to_scene = true
+script = ExtResource("15_e3ik1")
+position = Vector2(85.135, -66.98)
+radius = 20.96
+metadata/_custom_type_script = "uid://c70ooal7tc7va"
+
+[sub_resource type="Resource" id="Resource_e3ik1"]
+script = ExtResource("15_e3ik1")
+position = Vector2(-40.57, 3.49)
+radius = 18.16
+metadata/_custom_type_script = "uid://c70ooal7tc7va"
+
+[sub_resource type="Resource" id="Resource_4sv83"]
+script = ExtResource("15_e3ik1")
+position = Vector2(34.075, -0.905)
+radius = 0.875
+metadata/_custom_type_script = "uid://c70ooal7tc7va"
+
+[node name="GameOver" type="Node2D"]
+script = ExtResource("1_3817r")
+game_scene = ExtResource("2_mitgx")
+menu_scene = ExtResource("3_mitgx")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Title" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.5
+offset_top = -26.0
+offset_right = 46.5
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.427451, 0, 0, 1)
+theme_override_font_sizes/font_size = 17
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cause" type="Label" parent="CanvasLayer/Title"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -42.0
+offset_top = 21.0
+offset_right = 45.0
+offset_bottom = 44.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.411765, 0, 0, 0.435294)
+theme_override_font_sizes/font_size = 12
+text = "low oxygen"
+horizontal_alignment = 1
+
+[node name="Buttons" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 2.0
+offset_right = 20.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/Buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_right = 56.005
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.703136, 0.703136)
+text = "Restart
+"
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/Buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = 28.0
+offset_right = 58.005
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.703136, 0.703136)
+text = "Main Menu
+"
+
+[node name="Score" type="Label" parent="CanvasLayer"]
+offset_left = 5.0
+offset_top = 6.0
+offset_right = 151.0
+offset_bottom = 29.0
+scale = Vector2(0.916429, 0.916429)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "survived 0 waves"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.105, 2.105)
+
+[node name="Ant" type="RigidBody2D" parent="."]
+position = Vector2(-5.96047e-08, -26)
+rotation = -1.55354
+collision_layer = 2
+collision_mask = 7
+mass = 2.0
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 6555
+linear_damp = 5.0
+angular_damp = 4.0
+script = ExtResource("3_gs2es")
+speed = 500
+
+[node name="AntAnimatedSprite2D" type="AnimatedSprite2D" parent="Ant"]
+position = Vector2(0, 3)
+scale = Vector2(1, 1.3)
+sprite_frames = SubResource("SpriteFrames_wtaqj")
+autoplay = "default"
+
+[node name="Claw" type="Node2D" parent="Ant/AntAnimatedSprite2D"]
+position = Vector2(0, -13.8462)
+scale = Vector2(1.3, 1)
+
+[node name="L_claw" type="Sprite2D" parent="Ant/AntAnimatedSprite2D/Claw"]
+visible = false
+z_index = -1
+position = Vector2(-3, -4)
+rotation = -0.963683
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("5_61f6c")
+
+[node name="R_claw" type="Sprite2D" parent="Ant/AntAnimatedSprite2D/Claw"]
+visible = false
+z_index = -1
+position = Vector2(2, 2)
+rotation = 0.903002
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("5_61f6c")
+flip_h = true
+
+[node name="AntHitBox" type="Area2D" parent="Ant/AntAnimatedSprite2D/Claw"]
+visible = false
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("6_xqply")
+damage = 5
+metadata/_custom_type_script = "uid://hh077l2jiybg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ant/AntAnimatedSprite2D/Claw/AntHitBox"]
+position = Vector2(0, -5.38462)
+shape = SubResource("CircleShape2D_f6dov")
+
+[node name="AntCollisionShape2D" type="CollisionShape2D" parent="Ant"]
+shape = SubResource("CapsuleShape2D_yntpf")
+
+[node name="AntArea2D" type="Area2D" parent="Ant"]
+visible = false
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ant/AntArea2D"]
+shape = SubResource("CircleShape2D_4ydk5")
+
+[node name="AntSkeleton2D" type="Skeleton2D" parent="Ant"]
+modification_stack = SubResource("SkeletonModificationStack2D_b38od")
+
+[node name="body" type="Bone2D" parent="Ant/AntSkeleton2D"]
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+editor_settings/show_bone_gizmo = false
+
+[node name="hip" type="Bone2D" parent="Ant/AntSkeleton2D/body"]
+rotation = 0.00390741
+scale = Vector2(0.999991, 0.999991)
+rest = Transform2D(0.598863, 0.800839, -0.800839, 0.598863, 0, 0)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="leg" type="Bone2D" parent="Ant/AntSkeleton2D/body/hip"]
+position = Vector2(7.65504, -8.79786)
+rotation = -1.37732
+scale = Vector2(0.999997, 0.999997)
+rest = Transform2D(0.277942, -0.960594, 0.960594, 0.277942, 7.65504, -8.79786)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="foot" type="Bone2D" parent="Ant/AntSkeleton2D/body/hip/leg"]
+position = Vector2(-0.299829, 7.51554)
+rest = Transform2D(1, 0, 0, 1, -0.299829, 7.51554)
+editor_settings/show_bone_gizmo = false
+
+[node name="foot" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip/leg/foot"]
+z_index = -1
+position = Vector2(0.985767, 1.44819)
+rotation = -0.754751
+scale = Vector2(1, 0.305)
+skew = -4.75645e-05
+texture = ExtResource("7_i8bap")
+
+[node name="leg" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip/leg"]
+z_index = -1
+position = Vector2(-0.289725, 3.90998)
+scale = Vector2(1, 0.6)
+texture = ExtResource("7_i8bap")
+
+[node name="hip" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip"]
+z_index = -1
+position = Vector2(3.399, -3.842)
+rotation = 0.71643
+texture = ExtResource("7_i8bap")
+
+[node name="hip2" type="Bone2D" parent="Ant/AntSkeleton2D/body"]
+position = Vector2(0, 2)
+rotation = 0.448367
+scale = Vector2(0.99998, 0.99998)
+rest = Transform2D(0.927902, -0.37277, 0.37277, 0.927902, 0, 2)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="leg" type="Bone2D" parent="Ant/AntSkeleton2D/body/hip2"]
+position = Vector2(8.9999, -11.0001)
+rotation = -0.26117
+rest = Transform2D(0.234421, -0.97214, 0.97214, 0.234421, 8.9999, -11.0001)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="foot" type="Bone2D" parent="Ant/AntSkeleton2D/body/hip2/leg"]
+position = Vector2(1, 10)
+rest = Transform2D(1, 0, 0, 1, 1, 10)
+auto_calculate_length_and_angle = false
+length = 5.745
+bone_angle = -0.29
+editor_settings/show_bone_gizmo = false
+
+[node name="foot2" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip2/leg/foot"]
+z_index = -1
+position = Vector2(-0.0623335, -0.99807)
+rotation = -1.67007
+scale = Vector2(1, 0.26)
+skew = -3.03984e-05
+texture = ExtResource("7_i8bap")
+
+[node name="leg2" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip2/leg"]
+z_index = -1
+position = Vector2(-0.250893, 4.3047)
+scale = Vector2(1, 0.7)
+texture = ExtResource("7_i8bap")
+
+[node name="hip2" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip2"]
+z_index = -1
+position = Vector2(4.97997, -6.01684)
+rotation = 0.675695
+texture = ExtResource("7_i8bap")
+
+[node name="hip3" type="Bone2D" parent="Ant/AntSkeleton2D/body"]
+position = Vector2(-1, 7)
+rotation = 0.00845331
+scale = Vector2(0.99998, 0.99998)
+rest = Transform2D(0.831669, 0.555235, -0.555235, 0.831669, -1, 7)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="leg" type="Bone2D" parent="Ant/AntSkeleton2D/body/hip3"]
+position = Vector2(6.79555, -7.60426)
+rotation = -0.226611
+rest = Transform2D(0.692888, -0.72105, 0.72105, 0.692888, 6.79555, -7.60426)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="foot" type="Bone2D" parent="Ant/AntSkeleton2D/body/hip3/leg"]
+position = Vector2(1, 10)
+rest = Transform2D(1, 0, 0, 1, 1, 10)
+auto_calculate_length_and_angle = false
+length = 5.745
+bone_angle = -0.29
+editor_settings/show_bone_gizmo = false
+
+[node name="foot3" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip3/leg/foot"]
+z_index = -1
+position = Vector2(0.761675, 1.1916)
+rotation = -0.698132
+scale = Vector2(1, 0.3)
+texture = ExtResource("7_i8bap")
+
+[node name="leg3" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip3/leg"]
+z_index = -1
+position = Vector2(0.121557, 4.68687)
+rotation = -0.106323
+scale = Vector2(1.07282, 0.735085)
+texture = ExtResource("7_i8bap")
+
+[node name="hip3" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip3"]
+z_index = -1
+position = Vector2(3.60326, -3.60799)
+rotation = 0.662463
+scale = Vector2(1, 0.7)
+texture = ExtResource("7_i8bap")
+
+[node name="hip4" type="Bone2D" parent="Ant/AntSkeleton2D/body"]
+rotation = 0.0693488
+scale = Vector2(0.999988, 0.999988)
+rest = Transform2D(0.598863, 0.800839, -0.800839, 0.598863, 0, 0)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="leg" type="Bone2D" parent="Ant/AntSkeleton2D/body/hip4"]
+position = Vector2(7.65504, -8.79786)
+rotation = -2.46542
+scale = Vector2(0.999997, 0.999997)
+rest = Transform2D(0.277942, -0.960594, 0.960594, 0.277942, 7.65504, -8.79786)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="foot" type="Bone2D" parent="Ant/AntSkeleton2D/body/hip4/leg"]
+position = Vector2(-0.299829, 7.51554)
+rest = Transform2D(1, 0, 0, 1, -0.299829, 7.51554)
+editor_settings/show_bone_gizmo = false
+
+[node name="foot" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip4/leg/foot"]
+z_index = -1
+position = Vector2(-0.759289, 1.29363)
+rotation = 0.83542
+scale = Vector2(1, 0.305)
+skew = -4.75645e-05
+texture = ExtResource("7_i8bap")
+
+[node name="leg" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip4/leg"]
+z_index = -1
+position = Vector2(-0.289725, 3.90998)
+scale = Vector2(1, 0.6)
+texture = ExtResource("7_i8bap")
+
+[node name="hip" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip4"]
+z_index = -1
+position = Vector2(3.399, -3.842)
+rotation = 0.71643
+texture = ExtResource("7_i8bap")
+
+[node name="hip5" type="Bone2D" parent="Ant/AntSkeleton2D/body"]
+position = Vector2(0, 2)
+rotation = 0.596643
+scale = Vector2(0.99998, 0.99998)
+rest = Transform2D(0.927902, -0.37277, 0.37277, 0.927902, 0, 2)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="leg" type="Bone2D" parent="Ant/AntSkeleton2D/body/hip5"]
+position = Vector2(8.9999, -11.0001)
+rotation = -0.534268
+rest = Transform2D(0.234421, -0.97214, 0.97214, 0.234421, 8.9999, -11.0001)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="foot" type="Bone2D" parent="Ant/AntSkeleton2D/body/hip5/leg"]
+position = Vector2(1, 10)
+rest = Transform2D(1, 0, 0, 1, 1, 10)
+auto_calculate_length_and_angle = false
+length = 5.745
+bone_angle = -0.29
+editor_settings/show_bone_gizmo = false
+
+[node name="foot2" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip5/leg/foot"]
+z_index = -1
+position = Vector2(-2.11784, -0.717579)
+rotation = 1.61203
+scale = Vector2(1, 0.26)
+skew = -3.03984e-05
+texture = ExtResource("7_i8bap")
+
+[node name="leg2" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip5/leg"]
+z_index = -1
+position = Vector2(-0.250893, 4.3047)
+scale = Vector2(1, 0.7)
+texture = ExtResource("7_i8bap")
+
+[node name="hip2" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip5"]
+z_index = -1
+position = Vector2(4.97997, -6.01684)
+rotation = 0.675695
+texture = ExtResource("7_i8bap")
+
+[node name="hip6" type="Bone2D" parent="Ant/AntSkeleton2D/body"]
+position = Vector2(-1, 7)
+rotation = 0.588659
+scale = Vector2(0.99998, 0.99998)
+rest = Transform2D(0.831669, 0.555235, -0.555235, 0.831669, -1, 7)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="leg" type="Bone2D" parent="Ant/AntSkeleton2D/body/hip6"]
+position = Vector2(6.79555, -7.60426)
+rotation = -0.805313
+scale = Vector2(1, 1)
+rest = Transform2D(0.692888, -0.72105, 0.72105, 0.692888, 6.79555, -7.60426)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="foot" type="Bone2D" parent="Ant/AntSkeleton2D/body/hip6/leg"]
+position = Vector2(1, 10)
+rest = Transform2D(1, 0, 0, 1, 1, 10)
+auto_calculate_length_and_angle = false
+length = 5.745
+bone_angle = -0.29
+editor_settings/show_bone_gizmo = false
+
+[node name="foot3" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip6/leg/foot"]
+z_index = -1
+position = Vector2(-0.753079, 1.19706)
+rotation = 0.624932
+scale = Vector2(1, 0.3)
+texture = ExtResource("7_i8bap")
+
+[node name="leg3" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip6/leg"]
+z_index = -1
+position = Vector2(0.865147, 4.90268)
+rotation = -0.112679
+scale = Vector2(1.00714, 0.677867)
+texture = ExtResource("7_i8bap")
+
+[node name="hip3" type="Sprite2D" parent="Ant/AntSkeleton2D/body/hip6"]
+z_index = -1
+position = Vector2(3.00799, -4.11741)
+rotation = 0.741827
+scale = Vector2(1, 0.7)
+texture = ExtResource("7_i8bap")
+
+[node name="Targets" type="Node2D" parent="Ant"]
+
+[node name="front" type="Node2D" parent="Ant/Targets"]
+
+[node name="target1" type="Node2D" parent="Ant/Targets/front"]
+position = Vector2(14, -14)
+
+[node name="target4" type="Node2D" parent="Ant/Targets/front"]
+position = Vector2(-14, -14)
+
+[node name="middle" type="Node2D" parent="Ant/Targets"]
+position = Vector2(0, 2)
+scale = Vector2(0.895522, 1.15915)
+
+[node name="target2" type="Node2D" parent="Ant/Targets/middle"]
+position = Vector2(17, -1)
+
+[node name="target5" type="Node2D" parent="Ant/Targets/middle"]
+position = Vector2(-17, -1)
+
+[node name="back" type="Node2D" parent="Ant/Targets"]
+
+[node name="target3" type="Node2D" parent="Ant/Targets/back"]
+position = Vector2(12, 12)
+
+[node name="target6" type="Node2D" parent="Ant/Targets/back"]
+position = Vector2(-12, 12)
+
+[node name="HurtBox" type="Area2D" parent="Ant" node_paths=PackedStringArray("health")]
+collision_layer = 0
+collision_mask = 40
+script = ExtResource("8_e3ik1")
+health = NodePath("../Health")
+metadata/_custom_type_script = "uid://b2iguirxrolfu"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ant/HurtBox"]
+shape = SubResource("CapsuleShape2D_00xey")
+
+[node name="Health" type="Node" parent="Ant"]
+script = ExtResource("9_4sv83")
+max_health = 20
+metadata/_custom_type_script = "uid://cjlkd8dcoggfe"
+
+[node name="AntAnimationPlayer" type="AnimationPlayer" parent="Ant"]
+root_node = NodePath("../AntAnimatedSprite2D/Claw")
+libraries = {
+&"": SubResource("AnimationLibrary_f7xtn")
+}
+
+[node name="IK_container" type="Node2D" parent="Ant"]
+top_level = true
+position = Vector2(0, -26)
+rotation = -1.58856
+
+[node name="front" type="Node2D" parent="Ant/IK_container"]
+
+[node name="leg1" type="Node2D" parent="Ant/IK_container/front" node_paths=PackedStringArray("default_leg_anchor")]
+position = Vector2(14.1221, -6.75018)
+rotation = -0.0466945
+script = ExtResource("10_os6t5")
+default_leg_anchor = NodePath("../../../Targets/front/target1")
+max_distance = 15.0
+
+[node name="leg4" type="Node2D" parent="Ant/IK_container/front" node_paths=PackedStringArray("default_leg_anchor")]
+position = Vector2(-14.82, -10.2649)
+rotation = -0.110395
+script = ExtResource("10_os6t5")
+default_leg_anchor = NodePath("../../../Targets/front/target4")
+max_distance = 15.0
+
+[node name="middle" type="Node2D" parent="Ant/IK_container"]
+
+[node name="leg2" type="Node2D" parent="Ant/IK_container/middle" node_paths=PackedStringArray("default_leg_anchor")]
+position = Vector2(16.9263, 4.30138)
+script = ExtResource("10_os6t5")
+default_leg_anchor = NodePath("../../../Targets/middle/target2")
+max_distance = 15.0
+
+[node name="leg5" type="Node2D" parent="Ant/IK_container/middle" node_paths=PackedStringArray("default_leg_anchor")]
+position = Vector2(-15.1931, 10.7318)
+script = ExtResource("10_os6t5")
+default_leg_anchor = NodePath("../../../Targets/middle/target5")
+max_distance = 15.0
+
+[node name="back" type="Node2D" parent="Ant/IK_container"]
+
+[node name="leg3" type="Node2D" parent="Ant/IK_container/back" node_paths=PackedStringArray("default_leg_anchor")]
+position = Vector2(7.6079, 22.1387)
+script = ExtResource("10_os6t5")
+default_leg_anchor = NodePath("../../../Targets/back/target3")
+max_distance = 15.0
+
+[node name="leg6" type="Node2D" parent="Ant/IK_container/back" node_paths=PackedStringArray("default_leg_anchor")]
+position = Vector2(-11.247, 13.8024)
+rotation = -0.277357
+script = ExtResource("10_os6t5")
+default_leg_anchor = NodePath("../../../Targets/back/target6")
+max_distance = 15.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_gs2es")
+autoplay = true
+bus = &"SFX"
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["oxygen_effect"]]
+material = SubResource("ShaderMaterial_xqply")
+position = Vector2(-236, -217)
+scale = Vector2(121.169, 121.169)
+texture = SubResource("NoiseTexture2D_os6t5")
+centered = false
+script = ExtResource("14_i8bap")
+circles = Array[ExtResource("15_e3ik1")]([SubResource("Resource_i8bap"), SubResource("Resource_e3ik1"), SubResource("Resource_4sv83")])
+
+[connection signal="button_up" from="CanvasLayer/Buttons/RestartButton" to="." method="_on_restart_button_button_up"]
+[connection signal="button_up" from="CanvasLayer/Buttons/MainMenuButton" to="." method="_on_main_menu_button_button_up"]
+[connection signal="body_entered" from="Ant/AntArea2D" to="Ant" method="_on_area_2d_body_entered"]
+[connection signal="receved_damage" from="Ant/HurtBox" to="Ant" method="_on_hurt_box_receved_damage"]
+[connection signal="on_health_depleted" from="Ant/Health" to="Ant" method="_on_health_on_health_depleted"]

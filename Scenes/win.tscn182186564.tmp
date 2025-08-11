@@ -1,0 +1,85 @@
+[gd_scene load_steps=11 format=3 uid="uid://b4w2gxxyig4b3"]
+
+[ext_resource type="Texture2D" uid="uid://bsb7biwkvk2jl" path="res://assets/sheets/bee_celebration.png" id="1_g1l0l"]
+[ext_resource type="PackedScene" uid="uid://byo7ot1iqoln8" path="res://Scenes/player.tscn" id="2_3xxyo"]
+[ext_resource type="Shader" uid="uid://kv75aowehduq" path="res://Shaders/oxygen_effect_2.gdshader" id="3_ru4ub"]
+[ext_resource type="Script" uid="uid://du0oh2anbjphh" path="res://Scripts/oxygen_effect.gd" id="4_liiam"]
+[ext_resource type="Script" uid="uid://c70ooal7tc7va" path="res://Scripts/resource/circle.gd" id="5_3xxyo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qndv1"]
+resource_local_to_scene = true
+shader = ExtResource("3_ru4ub")
+shader_parameter/world_position = Vector2(-236, -217)
+shader_parameter/scale = Vector2(121.169, 121.169)
+shader_parameter/circles = [Vector3(-106.04, 0, 42.17), Vector3(-31.935, 57.07, 26.71), Vector3(76.65, -65.595, 53.95)]
+shader_parameter/num_circles = 3
+shader_parameter/smooth_factor = 32.09
+shader_parameter/border_width = 2.0
+shader_parameter/border_color = Color(0.294368, 1, 0.999171, 0.556863)
+shader_parameter/inside_color = Color(5.0056e-06, 0.719415, 0.973597, 0.321569)
+shader_parameter/wave_number = 7.0
+shader_parameter/wave_amplitude = 3.0
+shader_parameter/wave_speed = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rvg8r"]
+width = 4
+height = 4
+
+[sub_resource type="Resource" id="Resource_ru4ub"]
+resource_local_to_scene = true
+script = ExtResource("5_3xxyo")
+position = Vector2(-106.04, 0)
+radius = 42.17
+metadata/_custom_type_script = "uid://c70ooal7tc7va"
+
+[sub_resource type="Resource" id="Resource_liiam"]
+script = ExtResource("5_3xxyo")
+position = Vector2(-31.935, 57.07)
+radius = 26.71
+metadata/_custom_type_script = "uid://c70ooal7tc7va"
+
+[sub_resource type="Resource" id="Resource_5amea"]
+script = ExtResource("5_3xxyo")
+position = Vector2(76.65, -65.595)
+radius = 53.95
+metadata/_custom_type_script = "uid://c70ooal7tc7va"
+
+[node name="Win" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -11.5
+offset_right = 35.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "You won!"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_left = 228.0
+offset_top = 59.0
+offset_right = 292.0
+offset_bottom = 123.0
+scale = Vector2(2.4526, 2.4526)
+texture = ExtResource("1_g1l0l")
+
+[node name="Player" parent="." instance=ExtResource("2_3xxyo")]
+position = Vector2(15, 11)
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["oxygen_effect"]]
+material = SubResource("ShaderMaterial_qndv1")
+position = Vector2(-236, -217)
+scale = Vector2(121.169, 121.169)
+texture = SubResource("NoiseTexture2D_rvg8r")
+centered = false
+script = ExtResource("4_liiam")
+circles = Array[ExtResource("5_3xxyo")]([SubResource("Resource_ru4ub"), SubResource("Resource_liiam"), SubResource("Resource_5amea")])

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AntTurretModification" load_steps=3 format=3 uid="uid://ctqcrbwjvbrol"]
+
+[ext_resource type="PackedScene" uid="uid://vcqcqes45vuq" path="res://Scenes/bullet.tscn" id="1_asv7a"]
+[ext_resource type="Script" uid="uid://b2rww6c18nos" path="res://Scripts/resource/ant_turret_modification.gd" id="1_uvefg"]
+
+[resource]
+script = ExtResource("1_uvefg")
+cooldown = 1.0
+bullet = ExtResource("1_asv7a")
+metadata/_custom_type_script = "uid://b2rww6c18nos"

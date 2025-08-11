@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="TreeParams" load_steps=7 format=3 uid="uid://cmjk0t31soo1o"]
+
+[ext_resource type="Script" uid="uid://b2205rthhqhcf" path="res://Scripts/resource/base_tree_params.gd" id="1_16k86"]
+[ext_resource type="Texture2D" uid="uid://bytrj55qd475v" path="res://assets/sheets/tree_sheet.png" id="2_tm3yj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onmi4"]
+atlas = ExtResource("2_tm3yj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k46td"]
+atlas = ExtResource("2_tm3yj")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2bwr"]
+atlas = ExtResource("2_tm3yj")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8pvjk"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onmi4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k46td")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2bwr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_16k86")
+energy_per_body = 70.0
+max_energy = -1.0
+radius_multiplier = 2.0
+max_radius = 180.0
+sprite_frames = SubResource("SpriteFrames_8pvjk")
+metadata/_custom_type_script = "uid://b2205rthhqhcf"
