@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cg67dl0w4cqxi"]
 
-[ext_resource type="Script" uid="uid://cjgsieehprlei" path="res://Scenes/hive.gd" id="1_bo86l"]
+[ext_resource type="Script" uid="uid://cjgsieehprlei" path="res://Scripts/hive.gd" id="1_bo86l"]
 [ext_resource type="Texture2D" uid="uid://ckuulvhsip0f7" path="res://assets/sheets/hive.png" id="11_fdmwc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ucv0o"]

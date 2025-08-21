@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dk41eve7x3yw5" path="res://Scripts/character_control.gd" id="2_hi2hl"]
 [ext_resource type="PackedScene" uid="uid://jn8icf0gn5yu" path="res://Scenes/main_menu.tscn" id="3_d74mo"]
 [ext_resource type="PackedScene" uid="uid://xvf0t5juar0o" path="res://Scenes/sting.tscn" id="3_ooax5"]
-[ext_resource type="Shader" uid="uid://kv75aowehduq" path="res://Shaders/oxygen_effect_2.gdshader" id="3_ru4ub"]
+[ext_resource type="Shader" uid="uid://kv75aowehduq" path="res://Shaders/oxygen_effect.gdshader" id="3_ru4ub"]
 [ext_resource type="Script" uid="uid://du0oh2anbjphh" path="res://Scripts/oxygen_effect.gd" id="4_liiam"]
 [ext_resource type="Texture2D" uid="uid://bgdvfkbr5u3u8" path="res://assets/sheets/player_sheet.png" id="4_yotum"]
 [ext_resource type="Script" uid="uid://c70ooal7tc7va" path="res://Scripts/resource/circle.gd" id="5_3xxyo"]

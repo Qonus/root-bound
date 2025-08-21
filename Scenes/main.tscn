@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://daek7wkgjlncy" path="res://Scenes/hud.tscn" id="5_kry3j"]
 [ext_resource type="PackedScene" uid="uid://gjshqjavmi5a" path="res://Scenes/turret_ant.tscn" id="6_6iyac"]
 [ext_resource type="PackedScene" uid="uid://cfmoqhatk7nfr" path="res://Scenes/enemy_spawner.tscn" id="6_21xkr"]
-[ext_resource type="Shader" uid="uid://kv75aowehduq" path="res://Shaders/oxygen_effect_2.gdshader" id="8_344ge"]
+[ext_resource type="Shader" uid="uid://kv75aowehduq" path="res://Shaders/oxygen_effect.gdshader" id="8_344ge"]
 [ext_resource type="PackedScene" uid="uid://b2avqj20vwsbl" path="res://Scenes/ant.tscn" id="9_ynf5e"]
 [ext_resource type="Script" uid="uid://du0oh2anbjphh" path="res://Scripts/oxygen_effect.gd" id="12_6iyac"]
 [ext_resource type="PackedScene" uid="uid://cg67dl0w4cqxi" path="res://Scenes/hive.tscn" id="12_fdnlq"]

@@ -13,7 +13,7 @@ config_version=5
 config/name="RootBound"
 run/main_scene="uid://jn8icf0gn5yu"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="uid://cls4nnk1p7tlt"
+config/icon="uid://btjyjywiffmno"
 
 [audio]
 
@@ -27,6 +27,7 @@ PlayerParameters="*res://player_parameters.gd"
 
 window/size/viewport_width=384
 window/size/viewport_height=216
+window/size/mode=3
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"

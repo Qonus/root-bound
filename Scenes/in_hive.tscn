@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b2avqj20vwsbl" path="res://Scenes/ant.tscn" id="4_hbc4g"]
 [ext_resource type="AudioStream" uid="uid://b3adlkw8xaeyk" path="res://assets/Sound/724859__lovescotch__overclocking.wav" id="7_kvkj5"]
 [ext_resource type="AudioStream" uid="uid://q2qg1hke50iy" path="res://assets/Sound/368575__sirkoto51__atmospheric-ambiance-loop.wav" id="8_08nax"]
-[ext_resource type="Shader" uid="uid://kv75aowehduq" path="res://Shaders/oxygen_effect_2.gdshader" id="9_gdl44"]
+[ext_resource type="Shader" uid="uid://kv75aowehduq" path="res://Shaders/oxygen_effect.gdshader" id="9_gdl44"]
 [ext_resource type="PackedScene" uid="uid://cy08shbroutnb" path="res://Scenes/tree.tscn" id="10_hbc4g"]
 [ext_resource type="Script" uid="uid://du0oh2anbjphh" path="res://Scripts/oxygen_effect.gd" id="10_lxibn"]
 [ext_resource type="Texture2D" uid="uid://ckuulvhsip0f7" path="res://assets/sheets/hive.png" id="11_fdmwc"]
