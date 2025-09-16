@@ -13,7 +13,6 @@ func _process(node: Node2D, delta: float) -> void:
 	if (circle_id == -1):
 		circle_id = field_effect.circles.size()
 		field_effect.circles.append(Circle.create(node.global_position, field_radius))
-	var collisions = PhysicsService.cast_circle(node, field_radius, node.global_position)
 	#for collision in collisions:
 		#var bullet = collision.collider as Bullet
 		#if (bullet == null || bullet.is_in_group("sting")): continue

@@ -45,7 +45,7 @@ height = 4
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6iyac"]
 resource_local_to_scene = true
 shader = ExtResource("8_344ge")
-shader_parameter/world_position = Vector2(-318383, -339147)
+shader_parameter/world_position = Vector2(-317927, -339084)
 shader_parameter/scale = Vector2(164949, 164949)
 shader_parameter/circles = []
 shader_parameter/num_circles = 0
@@ -219,7 +219,7 @@ position = Vector2(189, 335)
 [node name="Field effect" type="Sprite2D" parent="." groups=["field_effect"]]
 z_index = 10
 material = SubResource("ShaderMaterial_6iyac")
-position = Vector2(-318383, -339147)
+position = Vector2(-317927, -339084)
 scale = Vector2(164949, 164949)
 texture = SubResource("NoiseTexture2D_rvg8r")
 centered = false
