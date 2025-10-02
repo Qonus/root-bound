@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7ignrmew8y8w"]
+
+[ext_resource type="Script" uid="uid://ce6lh16m71y2y" path="res://Scenes/HUD/player_health.gd" id="1_3047i"]
+[ext_resource type="PackedScene" uid="uid://dby5l5oga6l03" path="res://Scenes/HUD/honey_comb.tscn" id="1_j06hg"]
+
+[node name="Health" type="Control" node_paths=PackedStringArray("slot_container")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 23.0
+script = ExtResource("1_3047i")
+health_slot = ExtResource("1_j06hg")
+slot_container = NodePath("FlowContainer")
+
+[node name="FlowContainer" type="FlowContainer" parent="."]
+layout_mode = 0
+offset_right = 173.17
+offset_bottom = 68.0
+theme_override_constants/h_separation = -5

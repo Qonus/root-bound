@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://dby5l5oga6l03"]
+
+[ext_resource type="Texture2D" uid="uid://d02adcqj5yo5b" path="res://assets/sheets/health_ui-Sheet.png" id="1_4kb41"]
+[ext_resource type="Script" uid="uid://dlou4ddoattej" path="res://Scenes/HUD/honey_comb.gd" id="2_14ccp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36asn"]
+resource_local_to_scene = true
+atlas = ExtResource("1_4kb41")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="Animation" id="Animation_02ved"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 16, 16)]
+}
+
+[sub_resource type="Animation" id="Animation_u0btv"]
+resource_name = "damage"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03333334, 0.06666666, 0.099999994, 0.13333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 16, 16), Rect2(16, 0, 16, 16), Rect2(32, 0, 16, 16), Rect2(48, 0, 16, 16), Rect2(64, 0, 16, 16)]
+}
+
+[sub_resource type="Animation" id="Animation_mh55k"]
+resource_name = "restore"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.2, 0.4, 0.43333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(64, 0, 16, 16), Rect2(80, 0, 16, 16), Rect2(96, 0, 16, 16), Rect2(112, 0, 16, 16), Rect2(128, 0, 16, 16), Rect2(144, 0, 16, 16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mne01"]
+_data = {
+&"RESET": SubResource("Animation_02ved"),
+&"damage": SubResource("Animation_u0btv"),
+&"restore": SubResource("Animation_mh55k")
+}
+
+[node name="HoneyComb" type="TextureRect" node_paths=PackedStringArray("animation_player")]
+custom_minimum_size = Vector2(20, 20)
+offset_right = 16.0
+offset_bottom = 16.0
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_36asn")
+script = ExtResource("2_14ccp")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_mne01")
+}

@@ -35,16 +35,16 @@ void fragment() {
 
     float combined_sdf = 999999.0;
     for (int i = 0; i < num_circles; i++) {
-        vec2 circle_center = circles[i].xy;
-        float circle_radius = circles[i].z;
-        float current_sdf = sdf_circle(gl_uv, circle_center, circle_radius);
+		vec2 circle_center = circles[i].xy;
+		float circle_radius = circles[i].z;
+		float current_sdf = sdf_circle(gl_uv, circle_center, circle_radius);
 		vec2 dir = circle_center - gl_uv;
-		current_sdf += sin(atan(dir.x, dir.y) * wave_number + TIME * wave_speed) * wave_amplitude;
+		current_sdf += sin(atan(dir.x, dir.y) * wave_number + TIME * wave_speed) * circle_radius * wave_amplitude;
 		combined_sdf = smooth_min(combined_sdf, current_sdf, smooth_factor);
     }
 
     vec4 final_color = vec4(0.0);
-    if (abs(combined_sdf) < border_width) {
+    if (combined_sdf <= 0.0 && -combined_sdf < border_width) {
         final_color = border_color;
     } else if (combined_sdf < 0.0) {
         final_color = inside_color;

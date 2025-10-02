@@ -3,16 +3,17 @@ extends Control
 
 signal _on_choice(choice: int)
 
-var health_bar: ProgressBar = null
-var oxygen_bar: ProgressBar = null
+@export var player_health: PlayerHealthUI = null
+var oxygen_meter: OxygenMeter = null
+var vignette: Vignette = null
 var hints: Hints = null
 var animation_player: AnimationPlayer = null
 
 func _ready() -> void:
-	health_bar = $HealthBar
-	health_bar.value = 1
-	oxygen_bar = $OxygenBar
-	oxygen_bar.value = 1
+	#player_health = $PlayerHealth
+	oxygen_meter = $OxygenMeter
+	oxygen_meter.fill_level = 1
+	vignette = $Vignette
 	hints = $Hints
 	animation_player = $AnimationPlayer
 

@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://vcqcqes45vuq"]
+
+[ext_resource type="Script" uid="uid://cn8x2gt6mdrtv" path="res://Scripts/sting.gd" id="1_yd4rs"]
+[ext_resource type="Script" uid="uid://hh077l2jiybg" path="res://Scripts/components/hitbox.gd" id="2_vd44j"]
+[ext_resource type="Texture2D" uid="uid://cav2bwojr7wrx" path="res://assets/sheets/bullet.png" id="3_yd4rs"]
+[ext_resource type="AudioStream" uid="uid://rr3cx76we7d6" path="res://assets/Sound/SFX/ant_shot.wav" id="4_xhhht"]
+[ext_resource type="AudioStream" uid="uid://dhfmmg85tnndu" path="res://assets/Sound/SFX/hit.wav" id="5_a8fq5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gatyj"]
+radius = 2.23607
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_gatyj"]
+resource_local_to_scene = true
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("4_xhhht")
+
+[sub_resource type="GDScript" id="GDScript_5c7yi"]
+script/source = "extends AudioStreamPlayer
+
+func _ready() -> void:
+	pitch_scale += randf()
+"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xlf2c"]
+streams_count = 1
+stream_0/stream = ExtResource("5_a8fq5")
+
+[node name="EnemyBullet" type="Node2D"]
+z_index = 1
+script = ExtResource("1_yd4rs")
+speed = 120
+
+[node name="StingHitBox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 5
+script = ExtResource("2_vd44j")
+metadata/_custom_type_script = "uid://hh077l2jiybg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StingHitBox"]
+shape = SubResource("CircleShape2D_gatyj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+scale = Vector2(1.1503, 1.1503)
+texture = ExtResource("3_yd4rs")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="Shoot" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_gatyj")
+volume_db = -15.0
+autoplay = true
+bus = &"SFX"
+script = SubResource("GDScript_5c7yi")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_xlf2c")
+volume_db = -15.0
+
+[connection signal="body_entered" from="StingHitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="on_damage_dealt" from="StingHitBox" to="." method="_on_hit_box_on_damage_dealt"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

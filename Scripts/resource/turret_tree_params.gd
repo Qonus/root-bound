@@ -9,7 +9,8 @@ var last_fire: int = 0
 func _ready(node: Node2D) -> void:
 	pass
 
-func _process(node: Node2D, delta: float):
+func _process(node: Plant, delta: float):
+	if (node.dead): return
 	var collisions = PhysicsService.cast_circle(node, attack_range, node.global_position)
 	var closest_ant: Ant = null
 	for collision in collisions:
@@ -25,7 +26,8 @@ func _process(node: Node2D, delta: float):
 		shoot(node, closest_ant)
 		last_fire = Time.get_ticks_usec()
 
-func shoot(node: Node2D, closest_ant: Ant):
+func shoot(node: Plant, closest_ant: Ant):
+	node.tree_animation_player.play("shoot")
 	var newBullet = bullet.instantiate() as Node2D
 	var dir = closest_ant.position - node.global_position
 	newBullet.position = node.global_position + dir.normalized() * 20

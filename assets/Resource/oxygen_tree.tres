@@ -16,7 +16,6 @@ atlas = ExtResource("2_tm3yj")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8pvjk"]
-resource_local_to_scene = true
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -35,6 +34,7 @@ animations = [{
 
 [resource]
 script = ExtResource("1_16k86")
+description = "Oxygen tree"
 energy_per_body = 70.0
 max_energy = -1.0
 radius_multiplier = 2.0

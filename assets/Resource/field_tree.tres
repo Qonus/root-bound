@@ -35,10 +35,10 @@ animations = [{
 [resource]
 script = ExtResource("1_lsbhw")
 field_radius = 120.0
-fan_power = 300.0
+fan_power = 400.0
+description = "Field tree"
 energy_per_body = 60.0
 max_energy = -1.0
-radius_multiplier = 4.0
 max_radius = 70.0
 sprite_frames = SubResource("SpriteFrames_ul50l")
 metadata/_custom_type_script = "uid://dpanihxxx3pfd"

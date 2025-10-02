@@ -4,6 +4,11 @@ extends RigidBody2D
 @export var speed = 8
 @export var sting: PackedScene
 
+@export var dash_force: float = 200.0;
+@export var dash_cool_down: float = 0.5;
+var dash_timer: float = 0.0;
+var is_dashing: bool = false
+
 # SMOOTHER
 var target_rotation := 0.0
 # INPUT
@@ -16,6 +21,8 @@ var grabable: Ant = null
 @export var max_oxygen: float = 20.0
 @export var oxygen_enabled: bool = true
 @onready var oxygen: float = max_oxygen
+var oxygen_damage_time: float = 2.0
+var oxygen_damage_timer: float = 0.0
 var oxygen_areas: int = 0
 # HEALTH
 var dead: bool = false
@@ -26,31 +33,48 @@ var hud: HUD
 var health: Health
 #var start_time: int = 0
 var animation_player: AnimationPlayer = null
+var darkness: Darkness = null
+var darkness_id: int = -1
 func _ready() -> void:
 	sting_timer = $StingTimer
 	grabable_area = $GrabableArea2D
 	health = $Health
 	animation_player = $AnimationPlayer
 	hud = get_tree().get_first_node_in_group("hud")
+	if (hud != null):
+		hud.player_health.max_health = health.max_health
+	darkness = get_tree().get_first_node_in_group("darkness")
+	if (darkness != null):
+		darkness_id = darkness.circles.size()
+		darkness.circles.append(Circle.create(global_position, 0))
 	#start_time = Time.get_ticks_usec()
 
 var can_sting: bool = true
 func _on_sting_timer_timeout() -> void:
 	can_sting = true
 
+var vignette_strength = 0.0
 func _process(delta: float) -> void:
+	update_visuals();
 	#PlayerParameters.score = (Time.get_ticks_usec() - start_time) / 1000000
 	if (dead): return
 #	OXYGEN METER UPDATE
 	if (oxygen_enabled && !hud.hints.get_hint(Hints.Hint.Start)):
 		if (oxygen_areas > 0):
 			oxygen += 1.5 * delta
+			oxygen_damage_timer = 0.0
+			vignette_strength = 0.0
 		else:
 			oxygen -= delta
+			vignette_strength = 1-oxygen/max_oxygen
 		oxygen = clamp(oxygen, 0, max_oxygen)
-		hud.oxygen_bar.value = oxygen / max_oxygen
+		hud.vignette.strength = lerpf(hud.vignette.strength, vignette_strength, 0.04)
+		hud.oxygen_meter.fill_level = oxygen / max_oxygen
 		if (oxygen <= 0):
-			die("Not enough Oxygen")
+			oxygen_damage_timer += delta
+			if (oxygen_damage_timer > oxygen_damage_time):
+				health.health -= 1
+				oxygen_damage_timer = 0.0
 
 #	MOVEMENT DIRECTION
 	move_direction = Vector2()
@@ -62,7 +86,7 @@ func _process(delta: float) -> void:
 	mouse_direction = get_global_mouse_position() - position
 
 #	ANIMATION
-	if (move_direction == Vector2()):
+	if (move_direction == Vector2() && !is_dashing):
 		$PlayerAnimatedSprite2D.animation = "idle"
 	else:
 		set_hud_hint(Hints.Hint.Start, false)
@@ -105,6 +129,25 @@ func _process(delta: float) -> void:
 #	THROW IF GRABBED
 	elif (grabbed && Input.is_action_just_released("throw")):
 		throw()
+	
+	
+#	DASH
+	dash_timer += delta;
+	var dir = (get_global_mouse_position() - global_position).normalized()
+	if (Input.is_action_just_pressed("dash") && dash_timer >= dash_cool_down):
+		apply_impulse(dir * dash_force)
+		dash_timer = 0.0
+		is_dashing = true
+	if (is_dashing):
+		target_rotation = dir.angle() + PI/2
+	if (is_dashing && dash_timer >= 0.2):
+		is_dashing = false
+
+
+func update_visuals():
+	if (darkness != null):
+		darkness.circles[darkness_id].position = global_position
+		darkness.circles[darkness_id].radius = lerpf(darkness.circles[darkness_id].radius, (1-vignette_strength) * 60 + 50, 0.05)
 
 func set_hud_hint(hint_type: Hints.Hint, value: bool):
 	if (hud == null): return
@@ -113,7 +156,8 @@ func set_hud_hint(hint_type: Hints.Hint, value: bool):
 func _physics_process(delta: float) -> void:
 	if (health.health <= 0): return
 	rotation = lerp_angle(rotation, target_rotation, 0.5)
-	apply_force(move_direction * delta * speed * 10000)
+	if (!is_dashing):
+		apply_force(move_direction * delta * speed * 10000)
 
 func shoot(shoot_dir: Vector2) -> void:
 	var newSting = sting.instantiate() as Node2D
@@ -136,13 +180,14 @@ func throw() -> void:
 
 # DAMAGE
 func _on_hurt_box_receved_damage(hitbox: HitBox) -> void:
-	health.set_temporary_immortality(0.5)
 	apply_impulse(hitbox.direction)
-	if(!animation_player.is_playing()):
-		animation_player.play("hurt")
 
 func _on_health_on_health_change(diff: int) -> void:
-	hud.health_bar.value = float(health.health) / float(health.max_health)
+	hud.player_health.health = float(health.health)
+	if (diff < 0):
+		health.set_temporary_immortality(0.5)
+		if(!animation_player.is_playing()):
+			animation_player.play("hurt")
 
 func die(cause: String = "health depletion") -> void:
 	PlayerParameters.death_cause = cause

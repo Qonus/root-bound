@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvcnruboqwuua"]
+
+[ext_resource type="Texture2D" uid="uid://bfyiwdrjt3cyx" path="res://assets/sheets/queen-bee.png" id="1_d20ws"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qr0kb"]
+radius = 8.0
+
+[node name="BeeQueen" type="RigidBody2D"]
+z_index = 10
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qr0kb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_d20ws")

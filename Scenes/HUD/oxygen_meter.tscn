@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://cm8d8gfblsq4e"]
+
+[ext_resource type="Texture2D" uid="uid://bhmi3mayjubyg" path="res://assets/sheets/oxygen_meter.png" id="1_in4is"]
+[ext_resource type="Script" uid="uid://bbdrgcqpuq1nk" path="res://Scenes/HUD/oxygen_meter.gd" id="1_occ4f"]
+[ext_resource type="Texture2D" uid="uid://c65vyaa4wqpf0" path="res://assets/sheets/oxygen_mete_mask.png" id="2_qjv20"]
+[ext_resource type="Shader" uid="uid://bf4w4x6jpawsm" path="res://Scenes/HUD/liquid.gdshader" id="3_qjv20"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_occ4f"]
+shader = ExtResource("3_qjv20")
+shader_parameter/fill_level = 1.0
+shader_parameter/color = Color(0.44869173, 0.8659577, 0.88490134, 0.8352941)
+shader_parameter/secondary_color = Color(0.22745098, 0.5803922, 0.68235296, 0.87058824)
+
+[node name="OxygenMeter" type="Control" node_paths=PackedStringArray("filler")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_occ4f")
+filler = NodePath("TextureRect2/Filler")
+fill_level = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_in4is")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+clip_children = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_qjv20")
+
+[node name="Filler" type="ColorRect" parent="TextureRect2"]
+material = SubResource("ShaderMaterial_occ4f")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

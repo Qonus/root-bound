@@ -17,7 +17,6 @@ atlas = ExtResource("3_3ac8a")
 region = Rect2(64, 32, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_385gf"]
-resource_local_to_scene = true
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -35,10 +34,11 @@ animations = [{
 }]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("2_7ttba")
-attack_range = 100.0
 bullet = ExtResource("1_wbu53")
-cooldown = 0.4
+cooldown = 0.8
+description = "Turret tree"
 energy_per_body = 40.0
 max_energy = -1.0
 radius_multiplier = 0.7

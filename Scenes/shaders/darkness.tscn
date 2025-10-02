@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://i5o4sa2ejoxa"]
+
+[ext_resource type="Shader" uid="uid://bqc1vtwbtb7oe" path="res://Scenes/shaders/darkness.gdshader" id="1_b6e7h"]
+[ext_resource type="Script" uid="uid://cfegp7iadm17t" path="res://Scenes/shaders/darkness.gd" id="2_cogqi"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cogqi"]
+frequency = 0.06
+offset = Vector3(-760.43024, 649.4196, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b6e7h"]
+noise = SubResource("FastNoiseLite_cogqi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qndv1"]
+resource_local_to_scene = true
+shader = ExtResource("1_b6e7h")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/border_color = Color(0.31061712, 0.31061712, 0.3106171, 1)
+shader_parameter/border_width = 0.255
+shader_parameter/world_position = Vector2(0, 0)
+shader_parameter/scale = Vector2(50, 50)
+shader_parameter/circles = []
+shader_parameter/num_circles = 0
+shader_parameter/smooth_factor = 20.0
+shader_parameter/noise = 2.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_b6e7h")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rvg8r"]
+width = 4
+height = 4
+
+[node name="Darkness" type="Sprite2D" groups=["darkness"]]
+material = SubResource("ShaderMaterial_qndv1")
+scale = Vector2(50, 50)
+texture = SubResource("NoiseTexture2D_rvg8r")
+centered = false
+script = ExtResource("2_cogqi")
+border_color = Color(0.31061712, 0.31061712, 0.3106171, 1)
+border_width = 0.255
+noise = null
+noise_texture = SubResource("NoiseTexture2D_b6e7h")

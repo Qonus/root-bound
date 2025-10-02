@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://byo7ot1iqoln8"]
+[gd_scene load_steps=23 format=3 uid="uid://byo7ot1iqoln8"]
 
 [ext_resource type="Script" uid="uid://dk41eve7x3yw5" path="res://Scripts/character_control.gd" id="1_r1h4d"]
 [ext_resource type="Texture2D" uid="uid://bgdvfkbr5u3u8" path="res://assets/sheets/player_sheet.png" id="2_3uyv8"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cjlkd8dcoggfe" path="res://Scripts/components/health.gd" id="6_x3wgy"]
 [ext_resource type="AudioStream" uid="uid://cn4kj3v42opva" path="res://assets/Sound/SFX/hurt.wav" id="7_3smsa"]
 [ext_resource type="AudioStream" uid="uid://b1ujx74i0m48h" path="res://assets/Sound/SFX/player_death.wav" id="8_8erm5"]
+[ext_resource type="Script" uid="uid://dvyd36l70jme4" path="res://Scripts/components/attractor_force.gd" id="9_f1ek2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r8n36"]
 radius = 5.0
@@ -138,6 +139,42 @@ tracks/6/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Damage:emitting")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("PlayerAnimatedSprite2D:frame")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CPUParticles2D2:emitting")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_f1ek2"]
 resource_name = "die"
@@ -229,20 +266,68 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 0.290196, 0.298039, 0.74902), Color(1, 1, 1, 1), Color(1, 0.290196, 0.298039, 0.74902), Color(1, 1, 1, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Damage:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.29),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_tx1dd"]
+resource_name = "dash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerAnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CPUParticles2D2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8erm5"]
 _data = {
 &"RESET": SubResource("Animation_8erm5"),
+&"dash": SubResource("Animation_tx1dd"),
 &"die": SubResource("Animation_f1ek2"),
 &"hurt": SubResource("Animation_3smsa")
 }
+
+[sub_resource type="Curve" id="Curve_8erm5"]
+_data = [Vector2(0, 0.9914473), 0.0, 0.0, 0, 0, Vector2(0.9283388, 0.743421), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="Player" type="RigidBody2D" groups=["player"]]
 collision_mask = 5
 gravity_scale = 0.0
 linear_damp = 10.0
 script = ExtResource("1_r1h4d")
+speed = 6
 sting = ExtResource("2_vgqql")
+dash_force = 500.0
+dash_cool_down = 0.4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -279,7 +364,7 @@ shape = SubResource("CircleShape2D_x3wgy")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("6_x3wgy")
-max_health = 25
+max_health = 6
 metadata/_custom_type_script = "uid://cjlkd8dcoggfe"
 
 [node name="GrabableArea2D" type="Area2D" parent="."]
@@ -306,6 +391,47 @@ libraries = {
 stream = ExtResource("8_8erm5")
 volume_db = -6.969
 bus = &"SFX"
+
+[node name="Damage" type="CPUParticles2D" parent="."]
+z_index = -2
+emitting = false
+amount = 100
+lifetime = 4.0
+one_shot = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.49
+initial_velocity_max = 69.26
+angular_velocity_min = 52.82
+angular_velocity_max = 114.28
+damping_min = 100.0
+damping_max = 100.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 3.75
+scale_amount_max = 6.7
+scale_amount_curve = SubResource("Curve_8erm5")
+color = Color(1, 0.74509805, 0.09803922, 1)
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 0.5
+direction = Vector2(0, 1)
+spread = 29.73
+gravity = Vector2(0, 0)
+initial_velocity_min = 33.46
+initial_velocity_max = 33.56
+damping_min = 55.488
+damping_max = 55.488
+scale_amount_min = 3.4
+scale_amount_max = 6.1
+color = Color(1, 1, 1, 0.3137255)
+
+[node name="AttractorForce" type="Node2D" parent="."]
+script = ExtResource("9_f1ek2")
+metadata/_custom_type_script = "uid://dvyd36l70jme4"
 
 [connection signal="timeout" from="StingTimer" to="." method="_on_sting_timer_timeout"]
 [connection signal="receved_damage" from="HurtBox" to="." method="_on_hurt_box_receved_damage"]

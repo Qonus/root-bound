@@ -29,10 +29,13 @@ func _ready() -> void:
 	ant_hitbox = $AntAnimatedSprite2D/Claw/AntHitBox
 	ant_collision_shape = $AntCollisionShape2D
 	attack_cooldown_timer = $AttackCooldown
+	player = get_tree().get_first_node_in_group("player")
 	#attack_sound = $AttackSound
 	connect("body_entered", on_body_entered)
 	if (dead): _on_health_on_health_depleted()
-	if (modification != null): modification._ready(get_node(get_path()))
+	if (modification != null): 
+		modification = modification.duplicate()
+		modification._ready(get_node(get_path()))
 
 func _process(delta: float) -> void:
 	if (player == null): return
@@ -54,7 +57,7 @@ func _physics_process(delta: float) -> void:
 		var angle_difference = wrapf(player.global_rotation + PI/2 - rotation, -PI, PI)
 		scale /= 1.5
 		rotation += angle_difference
-		position += dir * distance
+		global_position = player.global_position
 		#apply_torque(angle_difference * delta * 100 * 1000000)
 		#apply_force(dir * 5000 * delta)
 	else:
@@ -71,28 +74,39 @@ func _physics_process(delta: float) -> void:
 		apply_torque(angle_difference * delta * 1000000)
 		apply_force(dir * speed * 100 * delta)
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if (body.name == "Player"):
-		player = body
+#func _on_area_2d_body_entered(body: Node2D) -> void:
+	#if (body.name == "Player"):
+		#player = body
 
 func _on_health_on_health_depleted() -> void:
 	if (ant_animated_sprite == null): return
 	ant_animated_sprite.play("dead")
+	ant_animation_player.play("RESET")
+	ant_animation_player.advance(0)
+	ant_animation_player.play("hurt")
+	ant_animation_player.advance(0)
 	ant_skeleton.hide()
 	on_death.emit()
 	dead = true
+#	So that he doesnt accidently attack while dead
 	ant_hitbox.collision_layer = 0
 
 func _on_hurt_box_receved_damage(hitbox: HitBox) -> void:
+	if (!dead):
+		ant_animation_player.stop()
+		ant_animation_player.play("hurt")
 	apply_impulse(hitbox.direction/ant_mass, hitbox.global_position - global_position)
 	#if (hitbox.name == "StingHitBox"):
 		#player = get_node("../Player")
 
 func attack() -> void:
+	ant_animation_player.play("RESET")
+	ant_animation_player.advance(0)
 	ant_animation_player.play("attack")
+	ant_animation_player.advance(0)
 
-func on_body_entered(tree: Plant):
-	if (!dead || tree == null): return
+func on_body_entered(body: Node):
+	if (!dead || (body as Plant) == null): return
 	queue_free()
 
 func _on_attack_cooldown_timeout() -> void:

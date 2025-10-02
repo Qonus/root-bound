@@ -1,0 +1,635 @@
+[gd_scene load_steps=39 format=3 uid="uid://daek7wkgjlncy"]
+
+[ext_resource type="Script" uid="uid://5wyhh10bs4rv" path="res://Scripts/hud.gd" id="1_6pkbx"]
+[ext_resource type="PackedScene" uid="uid://c7ignrmew8y8w" path="res://Scenes/HUD/player_health.tscn" id="2_8wqxc"]
+[ext_resource type="Script" uid="uid://b7hkpbp1jxo0l" path="res://Scripts/hints.gd" id="3_1owdh"]
+[ext_resource type="PackedScene" uid="uid://cm8d8gfblsq4e" path="res://Scenes/HUD/oxygen_meter.tscn" id="3_8wqxc"]
+[ext_resource type="Texture2D" uid="uid://bytrj55qd475v" path="res://assets/sheets/tree_sheet.png" id="4_ewgg5"]
+[ext_resource type="PackedScene" uid="uid://chebthaefmdqw" path="res://Scenes/HUD/tree_card.tscn" id="5_1owdh"]
+[ext_resource type="Script" uid="uid://bo5x8fgaumylu" path="res://Scripts/wave_indicator.gd" id="5_isc6x"]
+[ext_resource type="Resource" uid="uid://cmjk0t31soo1o" path="res://assets/Resource/oxygen_tree.tres" id="6_7hg1w"]
+[ext_resource type="PackedScene" uid="uid://xvf0t5juar0o" path="res://Scenes/sting.tscn" id="8_mdrrw"]
+[ext_resource type="Script" uid="uid://dxeodbh456c35" path="res://Scripts/resource/turret_tree_params.gd" id="9_ue6o6"]
+[ext_resource type="Script" uid="uid://dpanihxxx3pfd" path="res://Scripts/resource/field_tree.gd" id="10_uwncq"]
+[ext_resource type="Shader" uid="uid://ocsjs7j4h0n1" path="res://Scenes/HUD/vignette.gdshader" id="12_mdrrw"]
+[ext_resource type="Script" uid="uid://chfr02k2i02tf" path="res://Scenes/HUD/vignette.gd" id="13_ue6o6"]
+[ext_resource type="Script" uid="uid://cr4ps1x4kl8j8" path="res://Scenes/HUD/next_wave_button.gd" id="14_uwncq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cgmvo"]
+font_size = 10
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_sjmnu"]
+font_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_6fbih"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dialogue:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(162, 239)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Dialogue:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Dialogue:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(60, 85)]
+}
+
+[sub_resource type="Animation" id="Animation_t1xeu"]
+resource_name = "hide_dialogue"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dialogue:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.435276, 0.965936, 1.41421, 1),
+"update": 0,
+"values": [Vector2(100, 64), Vector2(80, 33.52), Vector2(50, 88.36), Vector2(20, 293.51)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Dialogue:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.435276, 0.965936, 1.41421, 1),
+"update": 0,
+"values": [0.0, -0.278806, -0.278806, -0.480351]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Dialogue:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.435276, 0.965936, 1.41421, 1),
+"update": 0,
+"values": [Vector2(130, 85), Vector2(60, 85), Vector2(60, 85), Vector2(60, 85)]
+}
+
+[sub_resource type="Animation" id="Animation_bjfho"]
+resource_name = "show_dialogue"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dialogue:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.31864, 1),
+"update": 0,
+"values": [Vector2(100, 239), Vector2(100, 64)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Dialogue:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.31864, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Dialogue:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.31864, 1),
+"update": 0,
+"values": [Vector2(60, 85), Vector2(60, 85)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t1xeu"]
+_data = {
+&"RESET": SubResource("Animation_6fbih"),
+&"hide_dialogue": SubResource("Animation_t1xeu"),
+&"show_dialogue": SubResource("Animation_bjfho")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wk438"]
+atlas = ExtResource("4_ewgg5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8v76a"]
+atlas = ExtResource("4_ewgg5")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssymx"]
+atlas = ExtResource("4_ewgg5")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ue6o6"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wk438")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8v76a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ssymx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Resource" id="Resource_uwncq"]
+resource_local_to_scene = true
+script = ExtResource("9_ue6o6")
+bullet = ExtResource("8_mdrrw")
+description = "Turret tree"
+energy_per_body = 40.0
+max_energy = -1.0
+radius_multiplier = 0.7
+max_radius = 20.0
+sprite_frames = SubResource("SpriteFrames_ue6o6")
+metadata/_custom_type_script = "uid://dxeodbh456c35"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57fkx"]
+atlas = ExtResource("4_ewgg5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0wxr"]
+atlas = ExtResource("4_ewgg5")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbn7y"]
+atlas = ExtResource("4_ewgg5")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ul50l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57fkx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0wxr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbn7y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Resource" id="Resource_ts6ia"]
+resource_local_to_scene = true
+script = ExtResource("10_uwncq")
+field_radius = 120.0
+fan_power = 300.0
+description = "Field tree"
+energy_per_body = 60.0
+max_energy = -1.0
+max_radius = 70.0
+sprite_frames = SubResource("SpriteFrames_ul50l")
+metadata/_custom_type_script = "uid://dpanihxxx3pfd"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fbih"]
+atlas = ExtResource("4_ewgg5")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1xeu"]
+atlas = ExtResource("4_ewgg5")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="Animation" id="Animation_8jye8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WaveLabel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(17, 113)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WaveLabel:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WaveLabel:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(60, 23)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WaveLabel:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("WaveLabel:theme_override_colors/font_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_36asn"]
+resource_name = "show_wave"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WaveLabel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.566667, 3.43333, 4),
+"transitions": PackedFloat32Array(0.196146, 2.2974, 2.2974, 1),
+"update": 0,
+"values": [Vector2(18, 102), Vector2(0, 0), Vector2(0, 0), Vector2(17, -71)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WaveLabel:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.566667, 3.43333, 4),
+"transitions": PackedFloat32Array(0.196146, 2.2974, 2.2974, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WaveLabel:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.566667, 3.43333, 4),
+"transitions": PackedFloat32Array(0.196146, 2.2974, 2.2974, 1),
+"update": 0,
+"values": [Vector2(60, 23), Vector2(60, 23), Vector2(60, 23), Vector2(60, 23)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WaveLabel:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.566667, 3.43333, 4),
+"transitions": PackedFloat32Array(0.196146, 2.2974, 2.2974, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(2, 2), Vector2(2, 2), Vector2(1e-05, 1e-05)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("WaveLabel:theme_override_colors/font_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.566667, 3.43333, 4),
+"transitions": PackedFloat32Array(1.8025, 0.5, 0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_43w4t"]
+_data = {
+&"RESET": SubResource("Animation_8jye8"),
+&"show_wave": SubResource("Animation_36asn")
+}
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ue6o6"]
+offset = Vector3(-27.910841, -999.6104, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uwncq"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_ue6o6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ue6o6"]
+shader = ExtResource("12_mdrrw")
+shader_parameter/strength = 0.5
+shader_parameter/color = Color(0.13333334, 0.1254902, 0.20392157, 1)
+shader_parameter/noise = 0.15
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_uwncq")
+
+[node name="HUD" type="Control" node_paths=PackedStringArray("player_health") groups=["hud"]]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6pkbx")
+player_health = NodePath("PlayerHealth")
+
+[node name="PlayerHealth" parent="." instance=ExtResource("2_8wqxc")]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 21.0
+offset_right = 141.0
+offset_bottom = 44.0
+
+[node name="OxygenMeter" parent="." instance=ExtResource("3_8wqxc")]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 9.0
+offset_right = 39.0
+offset_bottom = 49.0
+
+[node name="Hints" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_1owdh")
+
+[node name="Start" type="Label" parent="Hints"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "[LMB] - to shoot
+[SPACE] - grab a nearby ant or throw grabbed ants
+[W] [A] [S] [D] - to move around
+[RMB] - to dash
+
+FEED the TREES to SURVIVE!"
+label_settings = SubResource("LabelSettings_cgmvo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Grab" type="Label" parent="Hints"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -27.0
+offset_right = 118.0
+offset_bottom = -4.0
+grow_vertical = 0
+text = "[SPACE] - to grab/throw"
+label_settings = SubResource("LabelSettings_sjmnu")
+vertical_alignment = 2
+
+[node name="Return" type="Label" parent="Hints"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 301.0
+offset_top = -27.0
+offset_right = 416.0
+offset_bottom = -4.0
+grow_vertical = 0
+text = "[ESC] - to return"
+label_settings = SubResource("LabelSettings_sjmnu")
+vertical_alignment = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+&"": SubResource("AnimationLibrary_t1xeu")
+}
+
+[node name="Dialogue" type="HBoxContainer" parent="."]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 162.0
+offset_top = 239.0
+offset_right = -37.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(162.115, 42.38)
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Dialogue"]
+layout_direction = 2
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Oxygen_Tree_button" parent="Dialogue/HBoxContainer" instance=ExtResource("5_1owdh")]
+layout_mode = 2
+tooltip_text = "Gives a lot of oxygen"
+tree = ExtResource("6_7hg1w")
+
+[node name="Oxygen_Tree_button3" parent="Dialogue/HBoxContainer" instance=ExtResource("5_1owdh")]
+layout_mode = 2
+tooltip_text = "Shoots at ants"
+tree = SubResource("Resource_uwncq")
+
+[node name="Oxygen_Tree_button4" parent="Dialogue/HBoxContainer" instance=ExtResource("5_1owdh")]
+layout_mode = 2
+tooltip_text = "Pushes ants away"
+tree = SubResource("Resource_ts6ia")
+
+[node name="Oxygen_Tree_button2" type="Button" parent="Dialogue/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(55, 70)
+layout_mode = 2
+focus_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Dialogue/HBoxContainer/Oxygen_Tree_button2"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_6fbih")
+
+[node name="Field_Tree_button" type="Button" parent="Dialogue/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(55, 70)
+layout_mode = 2
+focus_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Dialogue/HBoxContainer/Field_Tree_button"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_t1xeu")
+
+[node name="WaveIndicator" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -59.0
+offset_top = -78.0
+offset_right = -19.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_isc6x")
+
+[node name="WaveLabel" type="Label" parent="WaveIndicator"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.0
+offset_top = 93.0
+offset_right = 57.0
+offset_bottom = 116.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Wave: 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WaveIndicator"]
+libraries = {
+&"": SubResource("AnimationLibrary_43w4t")
+}
+
+[node name="Vignette" type="ColorRect" parent="."]
+z_index = -10
+material = SubResource("ShaderMaterial_ue6o6")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("13_ue6o6")
+speed = 0.03
+noise_texture = SubResource("NoiseTexture2D_uwncq")
+
+[node name="NextWaveButton" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -37.0
+offset_right = 44.315002
+offset_bottom = -11.690002
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 12
+text = "Next Wave"
+script = ExtResource("14_uwncq")
+
+[connection signal="button_up" from="Dialogue/HBoxContainer/Oxygen_Tree_button" to="." method="_on_dialogue_button_button_up" binds= [0]]
+[connection signal="button_up" from="Dialogue/HBoxContainer/Oxygen_Tree_button3" to="." method="_on_dialogue_button_button_up" binds= [1]]
+[connection signal="button_up" from="Dialogue/HBoxContainer/Oxygen_Tree_button4" to="." method="_on_dialogue_button_button_up" binds= [2]]
+[connection signal="button_up" from="Dialogue/HBoxContainer/Oxygen_Tree_button2" to="." method="_on_dialogue_button_button_up" binds= [1]]
+[connection signal="button_up" from="Dialogue/HBoxContainer/Field_Tree_button" to="." method="_on_dialogue_button_button_up" binds= [2]]
+[connection signal="button_up" from="NextWaveButton" to="NextWaveButton" method="_on_button_up"]

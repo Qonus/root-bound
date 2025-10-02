@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://b4w2gxxyig4b3"]
+[gd_scene load_steps=50 format=3 uid="uid://b4w2gxxyig4b3"]
 
 [ext_resource type="Texture2D" uid="uid://bsb7biwkvk2jl" path="res://assets/sheets/bee_celebration.png" id="1_g1l0l"]
 [ext_resource type="Script" uid="uid://blx6nwsu5glv" path="res://Scripts/win.gd" id="1_ooax5"]
@@ -7,8 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://jn8icf0gn5yu" path="res://Scenes/main_menu.tscn" id="3_d74mo"]
 [ext_resource type="PackedScene" uid="uid://xvf0t5juar0o" path="res://Scenes/sting.tscn" id="3_ooax5"]
 [ext_resource type="Shader" uid="uid://kv75aowehduq" path="res://Shaders/oxygen_effect.gdshader" id="3_ru4ub"]
+[ext_resource type="PackedScene" uid="uid://i5o4sa2ejoxa" path="res://Scenes/shaders/darkness.tscn" id="4_gwpfd"]
 [ext_resource type="Script" uid="uid://du0oh2anbjphh" path="res://Scripts/oxygen_effect.gd" id="4_liiam"]
 [ext_resource type="Texture2D" uid="uid://bgdvfkbr5u3u8" path="res://assets/sheets/player_sheet.png" id="4_yotum"]
+[ext_resource type="Shader" uid="uid://bqc1vtwbtb7oe" path="res://Scenes/shaders/darkness.gdshader" id="5_0fr5m"]
 [ext_resource type="Script" uid="uid://c70ooal7tc7va" path="res://Scripts/resource/circle.gd" id="5_3xxyo"]
 [ext_resource type="Texture2D" uid="uid://bkutf371lv6cq" path="res://bee.png" id="5_jqw4a"]
 [ext_resource type="Script" uid="uid://b2iguirxrolfu" path="res://Scripts/components/hurtbox.gd" id="6_1cslo"]
@@ -17,6 +19,59 @@
 [ext_resource type="AudioStream" uid="uid://b1ujx74i0m48h" path="res://assets/Sound/SFX/player_death.wav" id="9_47xj2"]
 [ext_resource type="AudioStream" uid="uid://c53tij61vpf58" path="res://assets/Sound/SFX/464537__pcmac__guidancecongrats.wav" id="16_d74mo"]
 [ext_resource type="AudioStream" uid="uid://m4jrfdctu4rt" path="res://assets/Sound/SFX/win.mp3" id="17_x1o0l"]
+[ext_resource type="PackedScene" uid="uid://clfpknxjv1ct2" path="res://Scenes/shaders/grass.tscn" id="18_x1o0l"]
+[ext_resource type="PackedScene" uid="uid://bvcnruboqwuua" path="res://Scenes/bee_queen.tscn" id="21_0fr5m"]
+[ext_resource type="PackedScene" uid="uid://cg67dl0w4cqxi" path="res://Scenes/hive.tscn" id="22_tv4mn"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cogqi"]
+frequency = 0.06
+offset = Vector3(-939.2043, 343.35895, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b6e7h"]
+noise = SubResource("FastNoiseLite_cogqi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tv4mn"]
+resource_local_to_scene = true
+shader = ExtResource("5_0fr5m")
+shader_parameter/color = Color(0.36862746, 0.83137256, 0.80784315, 0.20784314)
+shader_parameter/border_color = Color(0, 0.5921569, 0.7764706, 0.06666667)
+shader_parameter/border_width = 150.0
+shader_parameter/world_position = Vector2(-542, -551)
+shader_parameter/scale = Vector2(269, 269.74997)
+shader_parameter/circles = [Vector3(0, 0, 38.26), Vector3(-224.365, 0, 51.775), Vector3(276.92, 0, 62.455), Vector3(0, 214.85, 45.99), Vector3(0, -188.935, 56.63)]
+shader_parameter/num_circles = 5
+shader_parameter/smooth_factor = 20.0
+shader_parameter/noise = 205.135
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_b6e7h")
+
+[sub_resource type="Resource" id="Resource_coluu"]
+script = ExtResource("5_3xxyo")
+radius = 38.26
+metadata/_custom_type_script = "uid://c70ooal7tc7va"
+
+[sub_resource type="Resource" id="Resource_8pacq"]
+script = ExtResource("5_3xxyo")
+position = Vector2(-224.365, 0)
+radius = 51.775
+metadata/_custom_type_script = "uid://c70ooal7tc7va"
+
+[sub_resource type="Resource" id="Resource_wbqpu"]
+script = ExtResource("5_3xxyo")
+position = Vector2(276.92, 0)
+radius = 62.455
+metadata/_custom_type_script = "uid://c70ooal7tc7va"
+
+[sub_resource type="Resource" id="Resource_v0vtq"]
+script = ExtResource("5_3xxyo")
+position = Vector2(0, 214.85)
+radius = 45.99
+metadata/_custom_type_script = "uid://c70ooal7tc7va"
+
+[sub_resource type="Resource" id="Resource_ss11p"]
+script = ExtResource("5_3xxyo")
+position = Vector2(0, -188.935)
+radius = 56.63
+metadata/_custom_type_script = "uid://c70ooal7tc7va"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r8n36"]
 radius = 5.0
@@ -258,7 +313,7 @@ shader_parameter/border_width = 2.0
 shader_parameter/border_color = Color(0.294368, 1, 0.999171, 0.556863)
 shader_parameter/inside_color = Color(5.0056e-06, 0.719415, 0.973597, 0.321569)
 shader_parameter/wave_number = 7.0
-shader_parameter/wave_amplitude = 3.0
+shader_parameter/wave_amplitude = -0.11
 shader_parameter/wave_speed = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rvg8r"]
@@ -291,72 +346,71 @@ stream_count = 2
 stream_0 = ExtResource("17_x1o0l")
 stream_1 = ExtResource("16_d74mo")
 
+[sub_resource type="Resource" id="Resource_47xj2"]
+script = ExtResource("5_3xxyo")
+radius = 72.675
+metadata/_custom_type_script = "uid://c70ooal7tc7va"
+
+[sub_resource type="Resource" id="Resource_gwpfd"]
+script = ExtResource("5_3xxyo")
+radius = 122.135
+metadata/_custom_type_script = "uid://c70ooal7tc7va"
+
 [node name="Win" type="Node2D"]
 script = ExtResource("1_ooax5")
 game_scene = ExtResource("2_1cslo")
 menu_scene = ExtResource("3_d74mo")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Title" type="Label" parent="CanvasLayer"]
+[node name="Title" type="Label" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -41.0
-offset_top = -94.0
-offset_right = 48.0
-offset_bottom = -66.0
+offset_left = -29.0
+offset_top = -136.0
+offset_right = 60.0
+offset_bottom = -108.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "You won!"
 
-[node name="subtitle" type="Label" parent="CanvasLayer/Title"]
-layout_mode = 1
+[node name="subtitle" type="Label" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -153.5
-offset_top = -2.0
-offset_right = 158.5
-offset_bottom = 70.0
+offset_left = -139.0
+offset_top = -118.0
+offset_right = 173.0
+offset_bottom = -46.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 0.45098)
+theme_override_colors/font_color = Color(1, 1, 1, 0.90588236)
 theme_override_font_sizes/font_size = 10
 text = "God damn soldier, that's a company record.
 Now do it Again!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-offset_left = 266.0
-offset_top = 101.0
-offset_right = 330.0
-offset_bottom = 165.0
-scale = Vector2(1.82852, 1.82852)
-texture = ExtResource("1_g1l0l")
-
-[node name="Buttons" type="Control" parent="CanvasLayer"]
+[node name="Buttons" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = 15.0
-offset_right = 20.0
-offset_bottom = 55.0
+offset_left = -7.0
+offset_top = 20.0
+offset_right = 33.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RestartButton" type="Button" parent="CanvasLayer/Buttons"]
+[node name="RestartButton" type="Button" parent="Buttons"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -372,7 +426,7 @@ scale = Vector2(0.703136, 0.703136)
 text = "Restart
 "
 
-[node name="MainMenuButton" type="Button" parent="CanvasLayer/Buttons"]
+[node name="MainMenuButton" type="Button" parent="Buttons"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -388,6 +442,27 @@ grow_vertical = 2
 scale = Vector2(0.703136, 0.703136)
 text = "Main Menu
 "
+
+[node name="Darkness" parent="." instance=ExtResource("4_gwpfd")]
+material = SubResource("ShaderMaterial_tv4mn")
+position = Vector2(-542, -551)
+scale = Vector2(269, 269.74997)
+color = Color(0.36862746, 0.83137256, 0.80784315, 0.20784314)
+border_color = Color(0, 0.5921569, 0.7764706, 0.06666667)
+border_width = 150.0
+speed = 0.01
+noise = 205.135
+circles = Array[ExtResource("5_3xxyo")]([SubResource("Resource_coluu"), SubResource("Resource_8pacq"), SubResource("Resource_wbqpu"), SubResource("Resource_v0vtq"), SubResource("Resource_ss11p")])
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_left = 266.0
+offset_top = 101.0
+offset_right = 330.0
+offset_bottom = 165.0
+scale = Vector2(1.82852, 1.82852)
+texture = ExtResource("1_g1l0l")
 
 [node name="Player" type="RigidBody2D" parent="." groups=["player"]]
 position = Vector2(15, 11)
@@ -463,6 +538,7 @@ volume_db = -6.969
 bus = &"SFX"
 
 [node name="Sprite2D" type="Sprite2D" parent="." groups=["oxygen_effect"]]
+visible = false
 material = SubResource("ShaderMaterial_qndv1")
 position = Vector2(-236, -217)
 scale = Vector2(121.169, 121.169)
@@ -476,8 +552,19 @@ stream = SubResource("AudioStreamPlaylist_47xj2")
 volume_db = -10.0
 autoplay = true
 
-[connection signal="button_up" from="CanvasLayer/Buttons/RestartButton" to="." method="_on_restart_button_button_up"]
-[connection signal="button_up" from="CanvasLayer/Buttons/MainMenuButton" to="." method="_on_main_menu_button_button_up"]
+[node name="Grass" parent="." instance=ExtResource("18_x1o0l")]
+circles = Array[ExtResource("5_3xxyo")]([SubResource("Resource_47xj2"), SubResource("Resource_gwpfd")])
+gradient = 31.45
+
+[node name="BeeQueen" parent="." instance=ExtResource("21_0fr5m")]
+position = Vector2(14, -40)
+collision_mask = 9
+
+[node name="Hive" parent="." instance=ExtResource("22_tv4mn")]
+position = Vector2(88, -21)
+
+[connection signal="button_up" from="Buttons/RestartButton" to="." method="_on_restart_button_button_up"]
+[connection signal="button_up" from="Buttons/MainMenuButton" to="." method="_on_main_menu_button_button_up"]
 [connection signal="timeout" from="Player/StingTimer" to="Player" method="_on_sting_timer_timeout"]
 [connection signal="receved_damage" from="Player/HurtBox" to="Player" method="_on_hurt_box_receved_damage"]
 [connection signal="on_health_change" from="Player/Health" to="Player" method="_on_health_on_health_change"]

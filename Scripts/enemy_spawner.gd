@@ -2,6 +2,7 @@ class_name EnemySpawner
 extends Node
 
 signal on_next_wave(wave_number: int)
+signal on_wave_end(wave_number: int)
 
 @export var enabled: bool = true
 @export var spawn_distance: float = 300
@@ -38,7 +39,7 @@ func _process(delta: float) -> void:
 	
 	alive_bodies = alive
 	if (spawning && alive_bodies <= 0 && timer.is_stopped()):
-		next_wave()
+		on_wave_end.emit(current_wave + 1)
 
 func start_spawning():
 	on_next_wave.emit(current_wave + 1)
@@ -46,6 +47,8 @@ func start_spawning():
 	spawning = true
 
 func next_wave():
+	if (current_wave >= waves.size()):
+		get_tree().change_scene_to_file("res://Scenes/win.tscn")
 	on_next_wave.emit(current_wave + 1)
 	timer.start()
 
@@ -56,7 +59,9 @@ func wave_spawn(wave: Wave):
 
 func auto_spawn(enemy_type: int) -> void:
 	#if (bodies.size() >= max_bodies): return
-	var spawn_position: Vector2 = Vector2.UP.rotated(randf()*360) * spawn_distance + origin.position
+	var dir = -origin.global_position.normalized()
+	if (dir == Vector2()): dir = Vector2.UP
+	var spawn_position: Vector2 = dir.rotated((2*randf() - 1)*140) * spawn_distance
 	var spawn_rotation: float = (origin.position - spawn_position).angle()
 	spawn(enemy_type, spawn_position, spawn_rotation)
 
@@ -76,8 +81,6 @@ func _on_timer_timeout() -> void:
 	wave_spawn(waves[current_wave])
 	PlayerParameters.score = current_wave
 	current_wave += 1
-	if (current_wave >= waves.size()):
-		get_tree().change_scene_to_file("res://Scenes/win.tscn")
 	#auto_spawn(randi_range(0, enemy_instances.size() - 1))
 	#timer.wait_time = 60 / spawn_rate_per_minute + randf_range(-1, 1) + pow(bodies.size(), 2)/16
 	#timer.start()

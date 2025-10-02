@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://kk863wgq372y"]
+
+[ext_resource type="PackedScene" uid="uid://clfpknxjv1ct2" path="res://Scenes/shaders/grass.tscn" id="1_7e3jx"]
+[ext_resource type="PackedScene" uid="uid://byo7ot1iqoln8" path="res://Scenes/player.tscn" id="2_uvu47"]
+
+[node name="GrassPlayground" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("2_uvu47")]
+position = Vector2(50, -8)
+oxygen_enabled = false
+
+[node name="Grass" parent="." node_paths=PackedStringArray("node") instance=ExtResource("1_7e3jx")]
+position = Vector2(-3, 0)
+gradient = 45.045
+amount_of_grass = 20000
+grass_width = 3.0
+sway = 0.5
+phase_difference = 20.0
+node = NodePath("../Player")
